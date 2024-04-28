@@ -2,7 +2,10 @@
 export default {
   content: ['./src/**/*.{js,jsx}'],
   theme: {
-    extend: {},
+    backgroundImage: (theme) => ({
+      gradient: 'linear-gradient(90deg, #FFC80F 0%, #FF9A00 100%)',
+    }),
+    extend: { colors: { darkText: '#271F30' } },
   },
   plugins: [],
 };
