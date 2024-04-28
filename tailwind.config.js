@@ -5,7 +5,7 @@ export default {
     backgroundImage: (theme) => ({
       gradient: 'linear-gradient(90deg, #FFC80F 0%, #FF9A00 100%)',
     }),
-    extend: { colors: { darkText: '#271F30' } },
+    extend: { colors: { darkText: '#271F30', yellow: '#FFC80F' } },
   },
   plugins: [],
 };

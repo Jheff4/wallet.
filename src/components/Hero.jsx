@@ -1,4 +1,4 @@
-import bgImage from '../assets/heroBg.png';
+// import bgImage from '../assets/heroBg.png';
 import chromeLogo from '../assets/chrome.png';
 import appleLogo from '../assets/apple.png';
 import googlePlayLogo from '../assets/google_play.png';
@@ -7,9 +7,12 @@ import Navbar from './Navbar';
 
 function Hero() {
   return (
-    <div className="relative w-full min-h-[750px] overflow-hidden">
-      <img src={bgImage} className="block absolute top-0 left-0 z-10" />
-      <div className="text-white top-0 left-0 absolute w-full h-full  pt-8 z-30">
+    <div
+      style={{ backgroundImage: 'url(/heroBg.png)' }}
+      className="relative w-full min-h-[750px] overflow-hidden"
+    >
+      {/* <img src={bgImage} className="block absolute top-0 left-0 z-10" /> */}
+      <div className="text-white top-0 left-0 w-full h-full  pt-8 z-30">
         <Navbar />
         <div className="flex mt-20 gap-[180px] items-center">
           <img src={frame} />
