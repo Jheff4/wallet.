@@ -2,10 +2,14 @@ import gateway from '../assets/gateway.png';
 function Gateway() {
   return (
     <div
-      style={{ backgroundImage: 'url(/gatewayBg.png)' }}
+      style={{
+        backgroundImage: 'url(/gatewayBg.png)',
+        backgroundRepeat: 'no-repeat',
+        backgroundSize: 'cover',
+      }}
       className="bg-[#434445] py-20 text-white"
     >
-      <div className="w-1/2 mx-auto flex gap-8 items-center">
+      <div className=" px-4 md:px-0 md:w-2/3 xl:w-1/2 mx-auto flex flex-col md:flex-row gap-8 items-center">
         <div className="flex flex-col gap-8">
           <div className="text-[40px] font-medium">
             Your Gateway into Movement
@@ -20,7 +24,7 @@ function Gateway() {
           <div>
             <a
               href="/"
-              className="bg-yellow py-6 px-8 text-base rounded-2xl text-darkText font-bold inline-block"
+              className="bg-yellow py-3 md:py-6 px-4 md:px-8 text-base rounded-xl md:rounded-2xl text-darkText font-semibold md:font-bold inline-block"
             >
               Get Started
             </a>
