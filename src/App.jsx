@@ -1,5 +1,6 @@
 import './App.css';
 import Features from './components/Features';
+import Footer from './components/Footer';
 import Gateway from './components/Gateway';
 import Hero from './components/Hero';
 
@@ -9,6 +10,7 @@ function App() {
       <Hero />
       <Gateway />
       <Features />
+      <Footer />
     </div>
   );
 }
