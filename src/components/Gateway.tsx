@@ -23,7 +23,7 @@ function Gateway() {
           </div>
           <div>
             <a
-              href="/"
+              href="https://chromewebstore.google.com/detail/razor-wallet/fdcnegogpncmfejlfnffnofpngdiejii"
               className="bg-yellow py-3 md:py-6 px-4 md:px-8 text-base rounded-xl md:rounded-2xl text-darkText font-semibold md:font-bold inline-block"
             >
               Get Started

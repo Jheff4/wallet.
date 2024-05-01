@@ -1,6 +1,6 @@
 /** @type {import('tailwindcss').Config} */
 export default {
-  content: ['./src/**/*.{js,jsx}'],
+  content: ['./src/**/*.{ts,tsx}'],
   theme: {
     backgroundImage: (theme) => ({
       gradient: 'linear-gradient(90deg, #FFC80F 0%, #FF9A00 100%)',

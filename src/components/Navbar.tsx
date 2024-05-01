@@ -5,7 +5,7 @@ import { RiCloseLargeLine } from 'react-icons/ri';
 
 const navlinks = [
   { text: 'Docs', link: '' },
-  { text: 'Discord', link: '' },
+  { text: 'Discord', link: 'https://discord.com/invite/pzhexEWGcT' },
   { text: 'Discover', link: '' },
 ];
 function Navbar() {
@@ -49,9 +49,12 @@ function Navbar() {
             </a>
           ))}
         </div>
-        <button className="rounded-lg px-4 md:px-8 py-2 md:py-4 text-base text-black font-bold bg-[#FFC80F]">
+        <a
+          href="https://chromewebstore.google.com/detail/razor-wallet/fdcnegogpncmfejlfnffnofpngdiejii"
+          className="rounded-lg px-4 md:px-8 py-2 md:py-4 text-base text-black font-bold bg-[#FFC80F]"
+        >
           Download
-        </button>
+        </a>
       </div>
     </div>
   );

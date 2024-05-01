@@ -34,7 +34,7 @@ function Hero() {
             </div>
             <div className="flex flex-wrap text-base gap-6 items-center font-bold text-darkText">
               <a
-                href="/"
+                href="https://chromewebstore.google.com/detail/razor-wallet/fdcnegogpncmfejlfnffnofpngdiejii"
                 className="flex bg-gradient py-4 px-8 gap-2 rounded-2xl items-center"
               >
                 <img src={chromeLogo} alt="extension" />
