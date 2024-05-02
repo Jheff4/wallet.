@@ -41,7 +41,7 @@ const links = [
     title: 'Developers',
     content: [
       // { link: '/', text: 'About us' },
-      { link: '/', text: 'Integration' },
+      // { link: '/', text: 'Integration' },
       {
         link: 'https://github.com/razorlabsorg/razor-wallet-sdk',
         text: 'Wallet SDK',
@@ -59,8 +59,8 @@ function Footer() {
   return (
     <div className="bg-black px-10 md:px-[65px] text-white py-20 flex flex-col-reverse gap-4 md:flex-row justify-between md:gap-10">
       <div>
-        <div className="flex items-center gap-4">
-          <img className="w-10 h-10" src={razorLogo} />
+        <div className="flex items-center gap-4 cursor-pointer">
+          <img className="w-10 h-10 transition-transform duration-300 hover:rotate-6" src={razorLogo} />
           <span className="text-2xl font-bold">Razor Wallet</span>
         </div>
         <div className="flex mt-3 gap-3">
