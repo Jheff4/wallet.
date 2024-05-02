@@ -20,7 +20,7 @@ function Features() {
             account setup while ensuring your assets are safe and secure.
           </div>
         </div>
-        <img className="block w-full md:w-1/2" src={screenshot} />
+        <img className="block w-full md:w-1/2 transition-transform duration-300 md:hover:scale-110" src={screenshot} />
       </div>
     </div>
   );

@@ -19,8 +19,8 @@ function Navbar() {
         <LiaBarsSolid />
       </button>
       <div className="flex justify-between flex-1 items-center">
-        <div className="flex items-center gap-4">
-          <img className="w-10 h-10" src={razorLogo} />
+        <div className="flex items-center gap-4 cursor-pointer">
+          <img className="w-10 h-10 transition-transform duration-300 hover:rotate-6" src={razorLogo} />
           <span className="text-2xl hidden md:block font-bold">
             Razor Wallet
           </span>
@@ -35,7 +35,7 @@ function Navbar() {
             </button>
             <div className="mt-5 gap-3 font-bold flex flex-col">
               {navlinks.map((item) => (
-                <a key={`nav-${item.text}`} href={item.link}>
+                <a className='hover:text-[#949494] transition-all duration-500' key={`nav-${item.text}`} href={item.link}>
                   {item.text}
                 </a>
               ))}
@@ -44,14 +44,14 @@ function Navbar() {
         )}
         <div className="hidden md:flex font-bold text-base gap-10">
           {navlinks.map((item) => (
-            <a key={`nav-${item.text}`} href={item.link}>
+            <a className='hover:text-[#949494] transition-all duration-300' key={`nav-${item.text}`} href={item.link}>
               {item.text}
             </a>
           ))}
         </div>
         <a
           href="https://chromewebstore.google.com/detail/razor-wallet/fdcnegogpncmfejlfnffnofpngdiejii"
-          className="rounded-lg px-4 md:px-8 py-2 md:py-4 text-base text-black font-bold bg-[#FFC80F]"
+          className="rounded-lg px-4 md:px-8 py-2 md:py-4 text-base text-black font-bold bg-[#FFC80F] hover:bg-[#b99d42] transition duration-500"
         >
           Download
         </a>

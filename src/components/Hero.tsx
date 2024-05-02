@@ -22,7 +22,7 @@ function Hero() {
           <img className="hidden max-w-1/3 lg:block" src={frame} />
           <div className="px-4 w-full md:px-16 lg:px-0 lg:w-[36%] flex flex-col gap-8">
             <h1 className="font-bold text-2xl leading-10 md:text-[40px]">
-              Introducing Razor Wallet:
+              <span className='hover:text-[#848282] transition-all'>Introducing</span> <span className='hover:text-[#848282] transition-all'>Razor</span> <span className='hover:text-[#848282] transition-all'>Wallet:</span>
               <br /> Companion on Movement Blockchain
             </h1>
             <div>
