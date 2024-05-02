@@ -15,11 +15,10 @@ function Gateway() {
             Your Gateway into Movement
           </div>
           <div>
-            Buy, store, send, and swap tokens with ease. It’s a secure platform
-            that caters to both new and experienced users in the world of
-            decentralized finance. Manage your digital assets efficiently with
+            Buy, store, send, and swap tokens with ease. Razor Wallet is a secure wallet
+            that caters to both new and experienced crypto users. Manage your digital assets efficiently with
             Razor Wallet’s user-friendly interface, designed for the seamless
-            movement of tokens.
+            management of tokens and NFTs.
           </div>
           <div>
             <a

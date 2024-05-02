@@ -27,10 +27,9 @@ function Hero() {
             </h1>
             <div>
               Experience the future of finance with a sleek and secure wallet
-              that combines sharp security and user-friendly design. Empower
+              that combines sharp security and user-friendly design. Turbo charge
               your transactions, embrace decentralization, and redefine your
-              digital journey. Join the movement with Razor Wallet on Movement
-              Blockchain
+              digital journey. Join the Movement with Razor Wallet
             </div>
             <div className="flex flex-wrap text-base gap-6 items-center font-bold text-darkText">
               <a

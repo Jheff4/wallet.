@@ -6,7 +6,7 @@ import { RiCloseLargeLine } from 'react-icons/ri';
 const navlinks = [
   { text: 'Docs', link: '' },
   { text: 'Discord', link: 'https://discord.com/invite/pzhexEWGcT' },
-  { text: 'Discover', link: '' },
+  { text: 'Developers', link: '' },
 ];
 function Navbar() {
   const [isOpen, setOpen] = useState(false);

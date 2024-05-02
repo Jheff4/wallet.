@@ -17,8 +17,7 @@ function Features() {
           </div>
           <div>
             Seamless Onboarding with Fortified Security. Experience effortless
-            account setup while enjoying the confidence of private key security
-            for your peace of mind
+            account setup while ensuring your assets are safe and secure.
           </div>
         </div>
         <img className="block w-full md:w-1/2" src={screenshot} />
