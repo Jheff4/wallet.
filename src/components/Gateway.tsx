@@ -1,4 +1,4 @@
-import gateway from '../assets/gateway.png';
+import coins from '../assets/coins.png';
 function Gateway() {
   return (
     <div
@@ -29,7 +29,7 @@ function Gateway() {
             </a>
           </div>
         </div>
-        <img src={gateway} />
+        <img className='w-[13rem] ' src={coins} />
       </div>
     </div>
   );
