@@ -41,7 +41,7 @@ const links = [
     title: 'Developers',
     content: [
       // { link: '/', text: 'About us' },
-      { link: '/', text: 'Integration' },
+      // { link: '/', text: 'Integration' },
       {
         link: 'https://github.com/razorlabsorg/razor-wallet-sdk',
         text: 'Wallet SDK',

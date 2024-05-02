@@ -4,9 +4,9 @@ import { LiaBarsSolid } from 'react-icons/lia';
 import { RiCloseLargeLine } from 'react-icons/ri';
 
 const navlinks = [
-  { text: 'Docs', link: '' },
+  { text: 'Docs', link: 'https://kit.razorwallet.xyz/' },
   { text: 'Discord', link: 'https://discord.com/invite/pzhexEWGcT' },
-  { text: 'Developers', link: '' },
+  { text: 'Developers', link: 'https://kit.razorwallet.xyz/' },
 ];
 function Navbar() {
   const [isOpen, setOpen] = useState(false);
