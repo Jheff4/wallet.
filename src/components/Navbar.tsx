@@ -8,10 +8,23 @@ const navlinks = [
   { text: 'Discord', link: 'https://discord.com/invite/pzhexEWGcT' },
   { text: 'Developers', link: 'https://kit.razorwallet.xyz/' },
 ];
-function Navbar() {
+function Navbar({
+  // ref,
+  sticky,
+}: {
+  // ref: React.MutableRefObject<null>;
+  sticky: boolean;
+}) {
   const [isOpen, setOpen] = useState(false);
+
   return (
-    <div className="bg-[#131313] z-20 w-full py-6 px-4 md:px-16 flex justify-between items-center gap-3">
+    <div
+      // ref={ref}
+      // style={{ position: 'fixed', top: 0 }}
+      className={`bg-[#131313] z-20 w-full py-6 px-4 md:px-16 flex justify-between items-center gap-3 ${
+        sticky && 'fixed top-0'
+      }`}
+    >
       <button
         onClick={() => setOpen(true)}
         className="text-3xl block md:hidden"
@@ -20,7 +33,10 @@ function Navbar() {
       </button>
       <div className="flex justify-between flex-1 items-center">
         <div className="flex items-center gap-4 cursor-pointer">
-          <img className="w-10 h-10 transition-transform duration-300 hover:rotate-6" src={razorLogo} />
+          <img
+            className="w-10 h-10 transition-transform duration-300 hover:rotate-6"
+            src={razorLogo}
+          />
           <span className="text-2xl hidden md:block font-bold">
             Razor Wallet
           </span>
@@ -35,7 +51,11 @@ function Navbar() {
             </button>
             <div className="mt-5 gap-3 font-bold flex flex-col">
               {navlinks.map((item) => (
-                <a className='hover:text-[#949494] transition-all duration-500' key={`nav-${item.text}`} href={item.link}>
+                <a
+                  className="hover:text-[#949494] transition-all duration-500"
+                  key={`nav-${item.text}`}
+                  href={item.link}
+                >
                   {item.text}
                 </a>
               ))}
@@ -44,14 +64,18 @@ function Navbar() {
         )}
         <div className="hidden md:flex font-bold text-base gap-10">
           {navlinks.map((item) => (
-            <a className='hover:text-[#949494] transition-all duration-300' key={`nav-${item.text}`} href={item.link}>
+            <a
+              className="hover:text-[#949494] transition-all duration-300"
+              key={`nav-${item.text}`}
+              href={item.link}
+            >
               {item.text}
             </a>
           ))}
         </div>
         <a
           href="https://chromewebstore.google.com/detail/razor-wallet/fdcnegogpncmfejlfnffnofpngdiejii"
-          className="rounded-lg px-4 md:px-8 py-2 md:py-4 text-base text-black font-bold bg-[#FFC80F] hover:bg-[#b99d42] transition duration-500"
+          className="rounded-lg px-4 md:px-8 py-2 md:py-4 text-base text-black font-bold bg-[#FFC80F] hover:bg-white transition duration-500"
         >
           Download
         </a>

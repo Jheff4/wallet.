@@ -4,8 +4,27 @@ import appleLogo from '../assets/apple.png';
 import googlePlayLogo from '../assets/google_play.png';
 import frame from '../assets/heroFrame.png';
 import Navbar from './Navbar';
+import { useEffect, useRef, useState } from 'react';
 
 function Hero() {
+  const [sticky, setSticky] = useState(false);
+  const navRef = useRef(null);
+
+  useEffect(() => {
+    //@ts-ignore
+    const offset = navRef!.current!.offsetTop;
+    window.addEventListener('scroll', () => {
+      const isSticky = window.pageYOffset >= offset;
+      setSticky(isSticky);
+    });
+    return window.removeEventListener('scroll', () => {
+      //@ts-ignore
+      const offset = navRef!.current!.offsetTop;
+      const isSticky = window.pageYOffset >= offset;
+      setSticky(isSticky);
+    });
+  }, [navRef]);
+
   return (
     <div
       style={{
@@ -17,24 +36,36 @@ function Hero() {
     >
       {/* <img src={bgImage} className="block absolute top-0 left-0 z-10" /> */}
       <div className="text-white top-0 left-0 w-full h-full  pt-8 z-30">
-        <Navbar />
-        <div className="flex mt-20 gap-10 lg:gap-20 xl:gap-[180px] items-center">
+        <div ref={navRef}>
+          <Navbar sticky={sticky} />
+        </div>
+        <div
+          className={`flex mt-20 gap-10 lg:gap-20 xl:gap-[180px] items-center ${
+            sticky && 'mt-[175px]'
+          }`}
+        >
           <img className="hidden max-w-1/3 lg:block" src={frame} />
-          <div className="px-4 w-full md:px-16 lg:px-0 lg:w-[36%] flex flex-col gap-8">
-            <h1 className="font-bold text-2xl leading-10 md:text-[40px]">
-              <span className='hover:text-[#848282] transition-all'>Introducing</span> <span className='hover:text-[#848282] transition-all'>Razor</span> <span className='hover:text-[#848282] transition-all'>Wallet:</span>
+          <div className="px-4 w-full md:px-16 lg:px-0 lg:w-[50%] 2xl:w-[36%] flex flex-col gap-8">
+            <h1 className="font-medium text-2xl leading-[140%] md:text-[40px]">
+              <span className="hover:text-[#848282] transition-all">
+                Introducing
+              </span>{' '}
+              <span className="hover:text-[#848282] transition-all">Razor</span>{' '}
+              <span className="hover:text-[#848282] transition-all">
+                Wallet:
+              </span>
               <br /> Companion on Movement Blockchain
             </h1>
             <div>
               Experience the future of finance with a sleek and secure wallet
-              that combines sharp security and user-friendly design. Turbo charge
-              your transactions, embrace decentralization, and redefine your
-              digital journey. Join the Movement with Razor Wallet
+              that combines sharp security and user-friendly design. Turbo
+              charge your transactions, embrace decentralization, and redefine
+              your digital journey. Join the Movement with Razor Wallet
             </div>
             <div className="flex flex-wrap text-base gap-6 items-center font-bold text-darkText">
               <a
                 href="https://chromewebstore.google.com/detail/razor-wallet/fdcnegogpncmfejlfnffnofpngdiejii"
-                className="flex bg-gradient py-4 px-8 gap-2 rounded-2xl items-center"
+                className="flex bg-gradient hover:bg-transparent py-4 px-8 gap-2 rounded-2xl items-center"
               >
                 <img src={chromeLogo} alt="extension" />
                 <div>Download for Chrome</div>
