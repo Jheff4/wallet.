@@ -85,7 +85,7 @@ function Footer() {
             </div>
             <div className="flex flex-col">
               {link.content.map((item) => (
-                <a className="font-bold" href={item.link}>
+                <a className="" href={item.link}>
                   {item.text}
                 </a>
               ))}

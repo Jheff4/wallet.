@@ -1,3 +1,10 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.gradientBtn {
+  background: linear-gradient(90deg, #ffc80f 0%, #ff9a00 100%);
+}
+.gradientBtn:hover {
+  background: #fff;
+}

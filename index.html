@@ -25,7 +25,23 @@
       * {
         font-family: 'Satoshi', sans-serif;
         box-sizing: border-box;
-        scrollbar-width: none;
+        /* scrollbar-width: '3px'; */
+      }
+      body {
+        position: relative;
+      }
+
+      ::-webkit-scrollbar {
+        background-color: #000;
+        width: 10px;
+
+        /* border-radius: 50%; */
+      }
+
+      ::-webkit-scrollbar-thumb {
+        background: linear-gradient(90deg, #ffc80f 0%, #ff9a00 100%) no-repeat;
+        /* width: 7px; */
+        border-radius: 700px;
       }
 
       /**

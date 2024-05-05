@@ -15,21 +15,22 @@ function Gateway() {
             Your Gateway into Movement
           </div>
           <div>
-            Buy, store, send, and swap tokens with ease. Razor Wallet is a secure wallet
-            that caters to both new and experienced crypto users. Manage your digital assets efficiently with
-            Razor Wallet’s user-friendly interface, designed for the seamless
-            management of tokens and NFTs.
+            Buy, store, send, and swap tokens with ease. Razor Wallet is a
+            secure wallet that caters to both new and experienced crypto users.
+            Manage your digital assets efficiently with Razor Wallet’s
+            user-friendly interface, designed for the seamless management of
+            tokens and NFTs.
           </div>
           <div>
             <a
               href="https://chromewebstore.google.com/detail/razor-wallet/fdcnegogpncmfejlfnffnofpngdiejii"
-              className="bg-yellow hover:bg-[#b99d42] transition duration-500 py-3 md:py-6 px-4 md:px-8 text-base rounded-xl md:rounded-2xl text-darkText font-semibold md:font-bold inline-block"
+              className="bg-yellow hover:bg-white transition duration-500 py-3 md:py-6 px-4 md:px-8 text-base rounded-xl md:rounded-2xl text-darkText font-semibold md:font-bold inline-block"
             >
               Get Started
             </a>
           </div>
         </div>
-        <img className='w-[13rem] ' src={coins} />
+        <img className="w-[13rem] " src={coins} />
       </div>
     </div>
   );
