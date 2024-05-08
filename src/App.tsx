@@ -1,17 +1,14 @@
 import './App.css';
-import Features from './components/Features';
-import Footer from './components/Footer';
-import Gateway from './components/Gateway';
-import Hero from './components/Hero';
+import { Route, Routes } from 'react-router-dom';
+import HomePage from './pages/Home';
+import PrivacyPolicy from './pages/PrivacyPolicy';
 
 function App() {
   return (
-    <div className="w-full min-h-[100vh] bg-[#131313]">
-      <Hero />
-      <Gateway />
-      <Features />
-      <Footer />
-    </div>
+    <Routes>
+      <Route path="/" element={<HomePage />} />
+      <Route path="/privacy" element={<PrivacyPolicy />} />
+    </Routes>
   );
 }
 
