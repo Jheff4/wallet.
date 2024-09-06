@@ -11,14 +11,14 @@ function Hero() {
   const navRef = useRef(null);
 
   useEffect(() => {
-    //@ts-ignore
+    //@ts-expect-error ///
     const offset = navRef!.current!.offsetTop;
     window.addEventListener('scroll', () => {
       const isSticky = window.pageYOffset >= offset;
       setSticky(isSticky);
     });
     return window.removeEventListener('scroll', () => {
-      //@ts-ignore
+      //@ts-expect-error ///
       const offset = navRef!.current!.offsetTop;
       const isSticky = window.pageYOffset >= offset;
       setSticky(isSticky);
