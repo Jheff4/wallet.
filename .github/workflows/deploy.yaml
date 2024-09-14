@@ -1,0 +1,114 @@
+name: Deploy Wallet Landing Page
+
+on:
+  release:
+    types: [published]
+
+permissions:
+  id-token: write
+  contents: read
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout application code
+      uses: actions/checkout@v3
+
+    - name: Checkout infrastructure code
+      uses: actions/checkout@v3
+      with:
+        repository: razorlabs/base-infra
+        path: infrastructure
+        token: ${{ secrets.GH_PAT }}
+
+    - name: Configure AWS credentials for CloudFormation
+      uses: aws-actions/configure-aws-credentials@v2
+      with:
+        role-to-assume: arn:aws:iam::908027406424:role/BaseInfra
+        aws-region: us-east-1
+
+    - name: Check AWS CLI Configuration
+      run: |
+        aws configure list
+        aws sts get-caller-identity
+
+    - name: Check CloudFormation stack and get current template
+      id: check-stack
+      run: |
+        if aws cloudformation describe-stacks --stack-name wallet-razorlabs-xyz-infra &> /dev/null; then
+          echo "stack_exists=true" >> $GITHUB_OUTPUT
+          aws cloudformation get-template --stack-name wallet-razorlabs-xyz-infra --query TemplateBody --output text > current_template.yaml
+        else
+          echo "stack_exists=false" >> $GITHUB_OUTPUT
+        fi
+
+    - name: Compare templates
+      id: compare-templates
+      if: steps.check-stack.outputs.stack_exists == 'true'
+      run: |
+        if cmp -s current_template.yaml infrastructure/wallet-frontend/cloudformation/infrastructure.yaml; then
+          echo "templates_differ=false" >> $GITHUB_OUTPUT
+        else
+          echo "templates_differ=true" >> $GITHUB_OUTPUT
+        fi
+
+    - name: Create or update CloudFormation stack
+      if: steps.check-stack.outputs.stack_exists == 'false' || steps.compare-templates.outputs.templates_differ == 'true'
+      run: |
+        aws cloudformation deploy \
+          --template-file infrastructure/wallet-frontend/cloudformation/infrastructure.yaml \
+          --stack-name wallet-razorlabs-xyz-infra \
+          --region us-east-1 \
+          --parameter-overrides \
+          DomainName=wallet.razorlabs.xyz \
+          BucketName=wallet-razorlabs-xyz \
+          Region=us-east-1 \
+          AcmCertificateArn=${{ secrets.ACM_CERTIFICATE_ARN }} \
+          --capabilities CAPABILITY_NAMED_IAM CAPABILITY_AUTO_EXPAND CAPABILITY_IAM
+
+    - name: No changes to stack
+      if: steps.check-stack.outputs.stack_exists == 'true' && steps.compare-templates.outputs.templates_differ == 'false'
+      run: |
+        echo "No changes detected in the CloudFormation template. Stack update skipped."
+
+    - name: Get stack outputs
+      run: |
+        BUCKET_NAME=$(aws cloudformation describe-stacks --stack-name wallet-razorlabs-xyz-infra --query "Stacks[0].Outputs[?OutputKey=='BlogBucketName'].OutputValue" --output text)
+        DISTRIBUTION_ID=$(aws cloudformation describe-stacks --stack-name wallet-razorlabs-xyz-infra --query "Stacks[0].Outputs[?OutputKey=='CloudFrontDistributionId'].OutputValue" --output text)
+        DEPLOYMENT_ROLE=$(aws cloudformation describe-stacks --stack-name wallet-razorlabs-xyz-infra --query "Stacks[0].Outputs[?OutputKey=='DeploymentRoleArn'].OutputValue" --output text)
+        echo "BUCKET_NAME=$BUCKET_NAME" >> $GITHUB_ENV
+        echo "DISTRIBUTION_ID=$DISTRIBUTION_ID" >> $GITHUB_ENV
+        echo "DEPLOYMENT_ROLE=$DEPLOYMENT_ROLE" >> $GITHUB_ENV
+
+    - name: Describe stack events on failure
+      if: failure()
+      run: |
+        aws cloudformation describe-stack-events --stack-name wallet-razorlabs-xyz-infra
+
+    - name: Configure AWS credentials for deployment
+      uses: aws-actions/configure-aws-credentials@v2
+      with:
+        role-to-assume: ${{ env.DEPLOYMENT_ROLE }}
+        aws-region: us-east-1
+        role-session-name: GitHubActionsDeployment
+
+    - name: Install dependencies
+      run: |
+        npm install -g pnpm
+        pnpm install --frozen-lockfile
+
+    - name: Build project     
+      run: pnpm run build
+
+    - name: Deploy to S3
+      run: |
+        aws s3 sync ./dist s3://${{ env.BUCKET_NAME }} --delete
+
+    - name: Set correct content type for index.html
+      run: |
+        aws s3 cp s3://${{ env.BUCKET_NAME }}/index.html s3://${{ env.BUCKET_NAME }}/index.html --content-type "text/html" --metadata-directive REPLACE
+
+    - name: Invalidate CloudFront
+      run: |
+        aws cloudfront create-invalidation --distribution-id ${{ env.DISTRIBUTION_ID }} --paths "/*"
