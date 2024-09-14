@@ -26,8 +26,8 @@ jobs:
     - name: Configure AWS credentials for CloudFormation
       uses: aws-actions/configure-aws-credentials@v2
       with:
-        role-to-assume: arn:aws:iam::908027406424:role/BaseInfra
-        aws-region: us-east-1
+        role-to-assume: arn:aws:iam::225869613094:role/BaseInfra
+        aws-region: us-east-2
 
     - name: Check AWS CLI Configuration
       run: |
@@ -60,11 +60,11 @@ jobs:
         aws cloudformation deploy \
           --template-file infrastructure/wallet-frontend/cloudformation/infrastructure.yaml \
           --stack-name wallet-razorlabs-xyz-infra \
-          --region us-east-1 \
+          --region us-east-2 \
           --parameter-overrides \
           DomainName=wallet.razorlabs.xyz \
           BucketName=wallet-razorlabs-xyz \
-          Region=us-east-1 \
+          Region=us-east-2 \
           AcmCertificateArn=${{ secrets.ACM_CERTIFICATE_ARN }} \
           --capabilities CAPABILITY_NAMED_IAM CAPABILITY_AUTO_EXPAND CAPABILITY_IAM
 
@@ -91,7 +91,7 @@ jobs:
       uses: aws-actions/configure-aws-credentials@v2
       with:
         role-to-assume: ${{ env.DEPLOYMENT_ROLE }}
-        aws-region: us-east-1
+        aws-region: us-east-2
         role-session-name: GitHubActionsDeployment
 
     - name: Install dependencies
