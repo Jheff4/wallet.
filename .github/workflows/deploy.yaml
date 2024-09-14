@@ -75,7 +75,7 @@ jobs:
 
     - name: Get stack outputs
       run: |
-        BUCKET_NAME=$(aws cloudformation describe-stacks --stack-name wallet-razorlabs-xyz-infra --query "Stacks[0].Outputs[?OutputKey=='BlogBucketName'].OutputValue" --output text)
+        BUCKET_NAME=$(aws cloudformation describe-stacks --stack-name wallet-razorlabs-xyz-infra --query "Stacks[0].Outputs[?OutputKey=='WalletBucketName'].OutputValue" --output text)
         DISTRIBUTION_ID=$(aws cloudformation describe-stacks --stack-name wallet-razorlabs-xyz-infra --query "Stacks[0].Outputs[?OutputKey=='CloudFrontDistributionId'].OutputValue" --output text)
         DEPLOYMENT_ROLE=$(aws cloudformation describe-stacks --stack-name wallet-razorlabs-xyz-infra --query "Stacks[0].Outputs[?OutputKey=='DeploymentRoleArn'].OutputValue" --output text)
         echo "BUCKET_NAME=$BUCKET_NAME" >> $GITHUB_ENV
