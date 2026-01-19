@@ -35,7 +35,7 @@ function Hero() {
       className="w-full min-h-[750px] overflow-hidden"
     >
       {/* <img src={bgImage} className="block absolute top-0 left-0 z-10" /> */}
-      <div className="text-white top-0 left-0 w-full h-full  pt-8 z-30">
+      <div className="text-white top-0 left-0 w-full h-full z-30">
         <div ref={navRef}>
           <Navbar sticky={sticky} />
         </div>

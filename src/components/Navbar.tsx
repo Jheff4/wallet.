@@ -6,7 +6,7 @@ import { RiCloseLargeLine } from 'react-icons/ri';
 const navlinks = [
   { text: 'Docs', link: 'https://kit.razorwallet.xyz/' },
   { text: 'Discord', link: 'https://discord.com/invite/pzhexEWGcT' },
-  { text: 'Developers', link: 'https://kit.razorwallet.xyz/' },
+  // { text: 'Developers', link: 'https://kit.razorwallet.xyz/' },
 ];
 function Navbar({
   // ref,
@@ -21,7 +21,7 @@ function Navbar({
     <div
       // ref={ref}
       // style={{ position: 'fixed', top: 0 }}
-      className={`bg-[#131313] z-20 w-full py-6 px-4 md:px-16 flex justify-between items-center gap-3 ${
+      className={`bg-[#131313] z-20 w-full py-6 px-4 md:px-8 flex justify-between items-center gap-3 ${
         sticky && 'fixed top-0'
       }`}
     >
