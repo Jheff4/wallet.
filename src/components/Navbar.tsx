@@ -1,5 +1,7 @@
 import { useState } from 'react';
 import razorLogo from '../assets/razor.png';
+import appleIcon from '../assets/apple.png';
+import googleIcon from '../assets/google_play.png';
 import { LiaBarsSolid } from 'react-icons/lia';
 import { RiCloseLargeLine } from 'react-icons/ri';
 
@@ -21,7 +23,7 @@ function Navbar({
     <div
       // ref={ref}
       // style={{ position: 'fixed', top: 0 }}
-      className={`bg-[#131313] z-20 w-full py-6 px-4 md:px-8 flex justify-between items-center gap-3 ${
+      className={`bg-[#131313] z-20 w-full py-6 px-4 md:px-4 flex justify-between items-center gap-3 ${
         sticky && 'fixed top-0'
       }`}
     >
@@ -37,7 +39,7 @@ function Navbar({
             className="w-10 h-10 transition-transform duration-300 hover:rotate-6"
             src={razorLogo}
           />
-          <span className="text-2xl hidden md:block font-bold">
+          <span className="text-[1.3rem] leading-8 hidden md:block font-bold">
             Razor Wallet
           </span>
         </div>
@@ -62,7 +64,7 @@ function Navbar({
             </div>
           </div>
         )}
-        <div className="hidden md:flex font-bold text-base gap-10">
+        <div className="hidden md:flex font-bold text-base gap-[5rem]">
           {navlinks.map((item) => (
             <a
               className="hover:text-[#949494] transition-all duration-300"
@@ -73,12 +75,34 @@ function Navbar({
             </a>
           ))}
         </div>
-        <a
-          href="https://chromewebstore.google.com/detail/razor-wallet/fdcnegogpncmfejlfnffnofpngdiejii"
-          className="rounded-lg px-4 md:px-8 py-2 md:py-4 text-base text-black font-bold bg-[#FFC80F] hover:bg-white transition duration-500"
-        >
-          Download
-        </a>
+        <div className="flex md:gap-8 gap-3 items-center">
+          <a
+            href=""
+            className=""
+          >
+            <img
+            className="w-8 h-8 transition-transform duration-300 hover:rotate-12"
+            src={appleIcon}
+            alt="Apple"
+          />
+          </a>
+          <a
+            href=""
+            className=""
+          >
+            <img
+            className="w-7 h-7 transition-transform duration-300 hover:rotate-12"
+            src={googleIcon}
+            alt="Google"
+          />
+          </a>
+          <a
+            href="https://chromewebstore.google.com/detail/razor-wallet/fdcnegogpncmfejlfnffnofpngdiejii"
+            className="rounded-[18px] px-8 md:px-8 py-3 text-base text-[#271F30] font-bold bg-[#FFC80F] hover:bg-white transition duration-500"
+          >
+            Download
+          </a>
+        </div>
       </div>
     </div>
   );
