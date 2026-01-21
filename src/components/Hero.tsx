@@ -1,97 +1,59 @@
-// import bgImage from '../assets/heroBg.png';
-import chromeLogo from '../assets/chrome.png';
-import appleLogo from '../assets/apple.png';
-import googlePlayLogo from '../assets/google_play.png';
-import frame from '../assets/heroFrame.png';
-import Navbar from './Navbar';
-import { useEffect, useRef, useState } from 'react';
+import chromeLogo from '../assets/chrome.png'
+import Navbar from './Navbar'
+import { useEffect, useRef, useState } from 'react'
 
 function Hero() {
-  const [sticky, setSticky] = useState(false);
-  const navRef = useRef(null);
+  const [sticky, setSticky] = useState(false)
+  const navRef = useRef<HTMLDivElement | null>(null)
 
   useEffect(() => {
-    //@ts-expect-error ///
-    const offset = navRef!.current!.offsetTop;
-    window.addEventListener('scroll', () => {
-      const isSticky = window.pageYOffset >= offset;
-      setSticky(isSticky);
-    });
-    return window.removeEventListener('scroll', () => {
-      //@ts-expect-error ///
-      const offset = navRef!.current!.offsetTop;
-      const isSticky = window.pageYOffset >= offset;
-      setSticky(isSticky);
-    });
-  }, [navRef]);
+    if (!navRef.current) return
+
+    const offset = navRef.current.offsetTop
+
+    const onScroll = () => {
+      setSticky(window.pageYOffset >= offset)
+    }
+
+    window.addEventListener('scroll', onScroll)
+    return () => window.removeEventListener('scroll', onScroll)
+  }, [])
 
   return (
     <div
-      style={{
-        backgroundImage: 'url(/heroBg.png)',
-        backgroundRepeat: 'no-repeat',
-        backgroundSize: 'cover',
-      }}
-      className="w-full min-h-[750px] overflow-hidden"
+      className="
+        w-full min-h-[750px] overflow-hidden
+        bg-[linear-gradient(180deg,#9B7BB0_0%,#581A81_100%),url('/heroBg.png')]
+        bg-cover bg-center bg-no-repeat
+      "
     >
-      {/* <img src={bgImage} className="block absolute top-0 left-0 z-10" /> */}
-      <div className="text-white top-0 left-0 w-full h-full z-30">
+      <div className="text-white w-full h-full">
         <div ref={navRef}>
           <Navbar sticky={sticky} />
         </div>
+
         <div
-          className={`flex mt-20 gap-10 lg:gap-20 xl:gap-[180px] items-center ${
+          className={`flex mt-20 lg:gap-20 items-center flex-col ${
             sticky && 'mt-[175px]'
           }`}
         >
-          <img className="hidden max-w-1/3 lg:block" src={frame} />
-          <div className="px-4 w-full md:px-16 lg:px-0 lg:w-[50%] 2xl:w-[36%] flex flex-col gap-8">
-            <h1 className="font-medium text-2xl leading-[140%] md:text-[40px]">
-              <span className="hover:text-[#848282] transition-all">
-                Introducing
-              </span>{' '}
-              <span className="hover:text-[#848282] transition-all">Razor</span>{' '}
-              <span className="hover:text-[#848282] transition-all">
-                Wallet:
-              </span>
-              <br /> Companion on Movement Blockchain
-            </h1>
-            <div>
-              Experience the future of finance with a sleek and secure wallet
-              that combines sharp security and user-friendly design. Turbo
-              charge your transactions, embrace decentralization, and redefine
-              your digital journey. Join the Movement with Razor Wallet
-            </div>
-            <div className="flex flex-wrap text-base gap-6 items-center font-bold text-darkText">
-              <a
-                href="https://chromewebstore.google.com/detail/razor-wallet/fdcnegogpncmfejlfnffnofpngdiejii"
-                className="flex gradientBtn py-4 px-8 gap-2 rounded-2xl items-center"
-              >
-                <img src={chromeLogo} alt="extension" />
-                <div>Download for Chrome</div>
-              </a>
-              <a href="/" className="flex items-center gap-3">
-                <div className="bg-[#283544] rounded-full p-[7px] pt-[5px]">
-                  <img className="w-4" src={appleLogo} />
-                </div>
-                <div className="bg-gradient p-1 px-3 text-base rounded-full">
-                  Soon
-                </div>
-              </a>
-              <a href="/" className="flex items-center gap-3">
-                {/* <div className="bg-[#283544] rounded-full p-[7px] pt-[5px]"> */}
-                <img src={googlePlayLogo} />
-                {/* </div> */}
-                <div className="bg-gradient p-1 px-3 text-base rounded-full">
-                  Soon
-                </div>
-              </a>
-            </div>
+          <div className="text-[6rem] leading-[1.1] font-bold text-center">
+            Your daily Web3 <br/>Companion
+          </div>
+
+          <div className="flex flex-wrap text-base gap-6 items-center font-bold text-darkText mt-10">
+            <a
+              href="https://chromewebstore.google.com/detail/razor-wallet/fdcnegogpncmfejlfnffnofpngdiejii"
+              className="flex py-3 px-7 gap-2 rounded-2xl items-center bg-white"
+            >
+              <img className="w-10 h-10" src={chromeLogo} alt="extension" />
+              <div>Download for Chrome</div>
+            </a>
           </div>
         </div>
       </div>
     </div>
-  );
+  )
 }
 
-export default Hero;
+export default Hero

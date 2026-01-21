@@ -23,7 +23,7 @@ function Navbar({
     <div
       // ref={ref}
       // style={{ position: 'fixed', top: 0 }}
-      className={`bg-[#131313] z-20 w-full py-6 px-4 md:px-4 flex justify-between items-center gap-3 ${
+      className={`bg-[#131313] z-20 w-full py-5 px-4 md:px-4 flex justify-between items-center gap-3 ${
         sticky && 'fixed top-0'
       }`}
     >
@@ -39,7 +39,7 @@ function Navbar({
             className="w-10 h-10 transition-transform duration-300 hover:rotate-6"
             src={razorLogo}
           />
-          <span className="text-[1.3rem] leading-8 hidden md:block font-bold">
+          <span className="text-[1.4rem] leading-8 hidden md:block font-bold">
             Razor Wallet
           </span>
         </div>
@@ -64,7 +64,7 @@ function Navbar({
             </div>
           </div>
         )}
-        <div className="hidden md:flex font-bold text-base gap-[5rem]">
+        <div className="hidden md:flex text-base gap-[5rem]">
           {navlinks.map((item) => (
             <a
               className="hover:text-[#949494] transition-all duration-300"
