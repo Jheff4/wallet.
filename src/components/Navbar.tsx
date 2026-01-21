@@ -10,22 +10,12 @@ const navlinks = [
   { text: 'Discord', link: 'https://discord.com/invite/pzhexEWGcT' },
   // { text: 'Developers', link: 'https://kit.razorwallet.xyz/' },
 ];
-function Navbar({
-  // ref,
-  sticky,
-}: {
-  // ref: React.MutableRefObject<null>;
-  sticky: boolean;
-}) {
+function Navbar() {
   const [isOpen, setOpen] = useState(false);
 
   return (
-    <div
-      // ref={ref}
-      // style={{ position: 'fixed', top: 0 }}
-      className={`bg-[#131313] z-20 w-full py-5 px-4 md:px-4 flex justify-between items-center gap-3 ${
-        sticky && 'fixed top-0'
-      }`}
+    <nav
+      className="bg-[#131313] z-20 w-full py-5 flex justify-between items-center fixed px-4"
     >
       <button
         onClick={() => setOpen(true)}
@@ -33,13 +23,13 @@ function Navbar({
       >
         <LiaBarsSolid />
       </button>
-      <div className="flex justify-between flex-1 items-center">
+      <div className="flex justify-between items-center w-full">
         <div className="flex items-center gap-4 cursor-pointer">
           <img
             className="w-10 h-10 transition-transform duration-300 hover:rotate-6"
             src={razorLogo}
           />
-          <span className="text-[1.4rem] leading-8 hidden md:block font-bold">
+          <span className="text-[1.4rem] text-white leading-8 hidden md:block font-bold">
             Razor Wallet
           </span>
         </div>
@@ -67,7 +57,7 @@ function Navbar({
         <div className="hidden md:flex text-base gap-[5rem]">
           {navlinks.map((item) => (
             <a
-              className="hover:text-[#949494] transition-all duration-300"
+              className="hover:text-[#949494] transition-all duration-300 text-white"
               key={`nav-${item.text}`}
               href={item.link}
             >
@@ -98,13 +88,13 @@ function Navbar({
           </a>
           <a
             href="https://chromewebstore.google.com/detail/razor-wallet/fdcnegogpncmfejlfnffnofpngdiejii"
-            className="rounded-[18px] px-8 md:px-8 py-3 text-base text-[#271F30] font-bold bg-[#FFC80F] hover:bg-white transition duration-500"
+            className="rounded-[18px] px-8 md:px-8 py-3 text-base text-[#271F30] font-semibold bg-[#FFC80F] hover:bg-white transition duration-500"
           >
             Download
           </a>
         </div>
       </div>
-    </div>
+    </nav>
   );
 }
 
