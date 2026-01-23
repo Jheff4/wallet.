@@ -1,4 +1,3 @@
-import coins from '../assets/coins.png';
 function Gateway() {
   return (
     <div
@@ -7,30 +6,25 @@ function Gateway() {
         backgroundRepeat: 'no-repeat',
         backgroundSize: 'cover',
       }}
-      className="bg-[#434445] py-20 text-white"
+      className="bg-[#111111] py-20 text-white"
     >
-      <div className=" px-4 md:px-0 md:w-2/3 xl:w-1/2 mx-auto flex flex-col md:flex-row gap-8 items-center">
-        <div className="flex flex-col gap-8">
-          <div className="text-[40px] font-medium">
-            Your Gateway into Movement
-          </div>
-          <div>
-            Buy, store, send, and swap tokens with ease. Razor Wallet is a
-            secure wallet that caters to both new and experienced crypto users.
-            Manage your digital assets efficiently with Razor Wallet’s
-            user-friendly interface, designed for the seamless management of
-            tokens and NFTs.
-          </div>
-          <div>
-            <a
-              href="https://chromewebstore.google.com/detail/razor-wallet/fdcnegogpncmfejlfnffnofpngdiejii"
-              className="bg-yellow hover:bg-white transition duration-500 py-3 md:py-6 px-4 md:px-8 text-base rounded-xl md:rounded-2xl text-darkText font-semibold md:font-bold inline-block"
-            >
-              Get Started
-            </a>
-          </div>
-        </div>
-        <img className="w-[13rem] " src={coins} />
+      <div
+        className="
+          text-[5.5rem]
+          leading-[1.4]
+          tracking-wide
+          font-black
+          text-center
+          drop-shadow-[0px_0px_12px_rgba(89,28,129,0.35)]
+        "
+        style={{
+          textShadow: `
+            0 0 0.5px #fff,
+            0 0 1px #fff
+          `,
+        }}
+      >
+        Your Gateway into <br />the Blockchain
       </div>
     </div>
   );
