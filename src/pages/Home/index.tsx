@@ -12,8 +12,8 @@ function HomePage() {
         <Hero />
         <Gateway />
         <Features />
+        <Footer />
       </div>
-      <Footer />
     </section>
   );
 }

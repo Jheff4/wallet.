@@ -1,29 +1,86 @@
-import nfts from '../assets/nfts.png';
-import screenshot from '../assets/screenshot.png';
-
 function Features() {
+  const height = 440
+
+  const wrapper = 'group [perspective:1000px]'
+
+  const baseCard = `
+    rounded-xl
+    transition-all duration-500 ease-out
+    shadow-none
+    group-hover:shadow-2xl
+    hover:-translate-y-4
+    hover:scale-[1.03]
+  `
+
   return (
-    <div className="py-20 px-4 md:w-[85%] lg:w-[70%] mx-auto">
-      <div className="bg-gradient w-full items-center px-10 md:px-20 justify-around gap-10 pt-16  rounded-lg flex flex-col md:flex-row">
-        <div className="font-medium leading-10 text-2xl lg:text-[40px]">
-          Buy, trade, show off & explore new NFTs on Movement Chain
+    <div className="w-full py-4">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+        {/* 1 — tilt right */}
+        <div className={wrapper}>
+          <div
+            style={{ height }}
+            className={`${baseCard} bg-[#9B7BB0] hover:[transform:rotateY(6deg)_translateY(-16px)_scale(1.03)]`}
+          />
         </div>
-        <img className="block w-full md:w-1/2" src={nfts} />
-      </div>
-      <div className="flex flex-col md:flex-row items-center text-white mt-20 gap-10">
-        <div className="flex flex-col gap-3">
-          <div className="text-3xl md:text-[40px] font-medium">
-            Seamless and Secure Onboarding
-          </div>
-          <div>
-            Seamless Onboarding with Fortified Security. Experience effortless
-            account setup while ensuring your assets are safe and secure.
-          </div>
+
+        {/* 2 — tilt left */}
+        <div className={wrapper}>
+          <div
+            style={{ height }}
+            className={`${baseCard} bg-[linear-gradient(180deg,#FF7827_0%,#D05A13_100%)] hover:[transform:rotateY(-6deg)_translateY(-16px)_scale(1.03)]`}
+          />
         </div>
-        <img className="block w-full md:w-1/2 transition-transform duration-300 md:hover:scale-110" src={screenshot} />
+
+        {/* 3 — tilt forward */}
+        <div className={wrapper}>
+          <div
+            style={{ height }}
+            className={`${baseCard} bg-[#331642] hover:[transform:rotateX(6deg)_translateY(-16px)_scale(1.03)]`}
+          />
+        </div>
+
+        {/* 4 — tilt backward */}
+        <div className={wrapper}>
+          <div
+            style={{ height }}
+            className={`${baseCard} bg-[#070723] hover:[transform:rotateX(-6deg)_translateY(-16px)_scale(1.03)]`}
+          />
+        </div>
+
+        {/* 5 — diagonal right */}
+        <div className={wrapper}>
+          <div
+            style={{ height }}
+            className={`${baseCard} bg-[#FFC000] hover:[transform:rotateY(4deg)_rotateX(4deg)_translateY(-16px)_scale(1.03)]`}
+          />
+        </div>
+
+        {/* 6 — diagonal left */}
+        <div className={wrapper}>
+          <div
+            style={{ height }}
+            className={`${baseCard} bg-[#070723] hover:[transform:rotateY(-4deg)_rotateX(4deg)_translateY(-16px)_scale(1.03)]`}
+          />
+        </div>
+
+        {/* 7 — subtle lift only */}
+        <div className={wrapper}>
+          <div
+            style={{ height }}
+            className={`${baseCard} bg-[#FFFFFF] hover:[transform:translateY(-16px)_scale(1.03)]`}
+          />
+        </div>
+
+        {/* 8 — gentle tilt */}
+        <div className={wrapper}>
+          <div
+            style={{ height }}
+            className={`${baseCard} bg-[#9B7BB0] hover:[transform:rotateY(3deg)_translateY(-16px)_scale(1.03)]`}
+          />
+        </div>
       </div>
     </div>
-  );
+  )
 }
 
-export default Features;
+export default Features
