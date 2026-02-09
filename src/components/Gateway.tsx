@@ -58,10 +58,10 @@ function Gateway() {
   return (
     <div
       ref={containerRef}
-      className="relative bg-[#111111] mt-5 py-[9.2rem] text-white overflow-hidden"
+      className="relative bg-[#111111] rounded-lg mt-5 py-[9.2rem] text-white overflow-hidden"
     >
       {/* Background Pillars Layer */}
-      <div className="absolute inset-1 flex items-end justify-center pointer-events-none">
+      <div className="absolute inset-0 flex items-end justify-center pointer-events-none">
         
         {/* Fixed height wrapper so % heights work */}
         <div className="h-[600px] flex items-end gap-4 w-full">
