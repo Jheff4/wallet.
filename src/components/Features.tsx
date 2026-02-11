@@ -110,16 +110,83 @@ function Features() {
         <div className={wrapper}>
           <div
             style={{ height }}
-            className={`bg-[#FFC000] ${baseCard}`}
+            className={`bg-[#FFC000] ${baseCard} overflow-hidden`}
           >
-            <h3 className="text-[2.4rem] leading-[1.1] font-black tracking-tight text-black">
-              200k+ users <br /> world wide
-            </h3>
+            {/* BACKGROUND TEXT LAYERS */}
+            <div className="absolute inset-0 pointer-events-none select-none">
 
-            <img
+              {/* Outline layer */}
+              <div
+                className="
+                  absolute
+                  -top-6
+                  left-4
+                  text-[7rem]
+                  font-black
+                  leading-[0.9]
+                  text-transparent
+                  [-webkit-text-stroke:2px_black]
+                  opacity-70
+                "
+              >
+                Wide <br />
+                200k+ <br />
+                users
+                world <br />
+                wide
+              </div>
+
+              {/* Deep faded layer */}
+              <div
+                className="
+                  absolute
+                  bottom-[-40px]
+                  left-4
+                  text-[7rem]
+                  font-black
+                  leading-[0.9]
+                  text-transparent
+                  [-webkit-text-stroke:2px_black]
+                  opacity-30
+                "
+              >
+                200k+ <br />
+                users <br />
+                world
+              </div>
+            </div>
+
+            {/* FOREGROUND TEXT */}
+            <h3
+              className="
+                relative
+                z-10
+                text-[2.8rem]
+                leading-[1.05]
+                font-black
+                tracking-tight
+                text-white
+              "
+              style={{
+                textShadow: '0px 8px 0px #000000',
+              }}
+            >
+              200k+<br /> users world<br /> wide
+            </h3>
+            
+            {/* EMOJI IMAGE */}
+            {/* <img
               src={fifthCard}
-              className={`${mediaWrapper} w-[80%]`}
-            />
+              className="
+                absolute
+                bottom-[-10px]
+                right-[-10px]
+                w-[95%]
+                z-10
+                pointer-events-none
+                select-none
+              "
+            /> */}
           </div>
         </div>
 
@@ -127,33 +194,33 @@ function Features() {
         <div className={wrapper}>
           <div
             style={{ height }}
-            className={`bg-[#070723] ${baseCard}`}
+            className={`${baseCard}`}
           >
             {/* Background waves */}
             <img
               src={sixthBg}
-              className="absolute inset-0 w-full h-full object-cover opacity-40"
+              className="absolute inset-0 w-full h-full object-cover"
             />
 
-            <h3 className="text-[2.4rem] leading-[1.1] font-black tracking-tight text-white relative z-10">
+            <h3 className="text-[3.4rem] leading-[1] font-bold tracking-wide text-white relative z-10 pt-6">
               Seamless <br /> and Secure <br /> onboarding
             </h3>
 
             <img
               src={sixthCard}
-              className={`${mediaWrapper} w-[70%]`}
+              className={`${mediaWrapper} w-[62%] absolute left-1/2 -translate-x-1/2`}
             />
           </div>
         </div>
 
-        {/* 7 — Swap (NO IMAGE YET) */}
+        {/* 7 — Swap */}
         <div className={wrapper}>
           <div
             style={{ height }}
             className={`bg-[#FFFFFF] ${baseCard}`}
           >
-            <h3 className="text-[2.4rem] leading-[1.1] font-black tracking-tight text-[#331642]">
-              Swap tokens <br /> in wallet
+            <h3 className="text-[3.8rem] leading-[1.1] font-bold tracking-wide mt-14 z-20 text-[#331642]">
+              Swap tokens <br /> in <br /> wallet
             </h3>
 
             {/* Abstract blob placeholders */}
@@ -170,13 +237,13 @@ function Features() {
             style={{ height }}
             className={`bg-[#9B7BB0] ${baseCard}`}
           >
-            <h3 className="text-[2.4rem] leading-[1.1] font-black tracking-tight text-black">
+            <h3 className="text-[3rem] leading-[1] text-center font-bold tracking-wide text-black">
               Decentralised <br /> finance on <br /> your mobile
             </h3>
 
             <img
               src={eighthCard}
-              className={`${mediaWrapper} w-[70%]`}
+              className={`${mediaWrapper} w-[39%] absolute left-1/2 -translate-x-1/2`}
             />
           </div>
         </div>
