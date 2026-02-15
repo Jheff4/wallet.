@@ -2,9 +2,12 @@ import firstCard from '../assets/first.svg'
 import thirdCard from '../assets/third.svg'
 import fourthCard from '../assets/fourth.svg'
 import fifthCard from '../assets/fifth.svg'
+import fifthBg from '../assets/fifth-bg.svg'
 import sixthCard from '../assets/sixth.svg'
+import seventhCard from '../assets/seventh.svg'
 import sixthBg from '../assets/sixth-bg.svg'
 import eighthCard from '../assets/eighth.svg'
+import walletIcon from '../assets/razor.png'
 
 function Features() {
   const height = 440
@@ -64,11 +67,73 @@ function Features() {
               Connect to <br /> Multiple <br /> Dapps
             </h3>
 
-            {/* <div className="absolute bottom-10 left-1/2 -translate-x-1/2 w-[70%]">
-              <div className="h-[70px] rounded-2xl bg-white/90 shadow-xl" />
-              <div className="h-[70px] rounded-2xl bg-white/70 mt-[-40px] ml-6" />
-              <div className="h-[70px] rounded-2xl bg-white/50 mt-[-40px] ml-12" />
-            </div> */}
+            {/* STACKED WALLET CARDS */}
+            <div className="absolute top-[17.5rem] left-2 w-[70%] h-[90px]">
+
+              {/* CARD 5 */}
+              <div
+                className="absolute inset-0 rounded-[22px]"
+                style={{
+                  background: 'rgba(255,152,91,0.4)',
+                  transform: 'translate(75px,50px)',
+                }}
+              />
+
+              {/* CARD 4 */}
+              <div
+                className="absolute inset-0 rounded-[22px]"
+                style={{
+                  background: '#FF985B',
+                  transform: 'translate(55px,27px)',
+                }}
+              />
+
+              {/* CARD 3 */}
+              <div
+                className="absolute inset-0 rounded-[22px]"
+                style={{
+                  background: '#FFC4A0',
+                  transform: 'translate(35px,4px)',
+                }}
+              />
+
+              {/* CARD 2 */}
+              <div
+                className="absolute inset-0 rounded-[22px]"
+                style={{
+                  background: '#FFDFCB',
+                  transform: 'translate(14px,-24px)',
+                }}
+              />
+
+              {/* CARD 1 — MAIN */}
+              <div
+                className="
+                  absolute inset-0
+                  bg-white
+                  rounded-[22px]
+                  flex items-center gap-4
+                  px-5
+                "
+                style={{
+                  transform: 'translate(-3px,-50px)',
+                }}
+              >
+                <img src={walletIcon} alt="Wallet" className="w-12 h-12" />
+
+                <span
+                  className="
+                    text-[1.3rem]
+                    font-bold
+                    text-[#2B2533]
+                    whitespace-nowrap
+                  "
+                >
+                  Connect wallet
+                </span>
+              </div>
+
+            </div>
           </div>
         </div>
 
@@ -93,9 +158,9 @@ function Features() {
         <div className={wrapper}>
           <div
             style={{ height }}
-            className={`bg-[#070723] ${baseCard} p-2 pt-4`}
+            className={`bg-[#070723] ${baseCard} p-[0.7rem] pt-4`}
           >
-            <h3 className="text-[3.5rem] leading-none font-bold tracking-wide text-white">
+            <h3 className="text-[3.47rem] leading-none font-bold tracking-wide text-white whitespace-nowrap">
               10M+ <br /> Transactions <br /> since March, <br /> 2025
             </h3>
 
@@ -112,81 +177,75 @@ function Features() {
             style={{ height }}
             className={`bg-[#FFC000] ${baseCard} overflow-hidden`}
           >
-            {/* BACKGROUND TEXT LAYERS */}
-            <div className="absolute inset-0 pointer-events-none select-none">
-
-              {/* Outline layer */}
-              <div
+            <div className="relative z-10">
+              <h3
                 className="
                   absolute
-                  -top-6
-                  left-4
-                  text-[7rem]
-                  font-black
-                  leading-[0.9]
-                  text-transparent
-                  [-webkit-text-stroke:2px_black]
-                  opacity-70
+                  inset-0
+                  text-[3.5rem]
+                  leading-[1]
+                  font-bold
+                  tracking-wide
+                  pointer-events-none
+                  select-none
                 "
-              >
-                Wide <br />
-                200k+ <br />
-                users
-                world <br />
-                wide
-              </div>
+                style={{
+                  transform: 'translateY(13px)',
+                  color: '#FFC000',
 
-              {/* Deep faded layer */}
-              <div
-                className="
-                  absolute
-                  bottom-[-40px]
-                  left-4
-                  text-[7rem]
-                  font-black
-                  leading-[0.9]
-                  text-transparent
-                  [-webkit-text-stroke:2px_black]
-                  opacity-30
-                "
+                  textShadow: `
+                    /* cardinal */
+                    1px  0   0 #000,
+                    -1px  0   0 #000,
+                    0    1px 0 #000,
+                    0   -1px 0 #000,
+
+                    /* diagonals (fills gaps) */
+                    1px  1px 0 #000,
+                    -1px -1px 0 #000,
+                    1px -1px 0 #000,
+                    -1px  1px 0 #000
+                  `,
+                }}
               >
-                200k+ <br />
-                users <br />
-                world
-              </div>
+                200k+<br /> users world<br /> wide
+              </h3>
+
+              {/* MAIN TEXT */}
+              <h3
+                className="
+                  relative
+                  text-[3.5rem]
+                  leading-[1]
+                  font-bold
+                  tracking-wide
+                  text-white
+                "
+                style={{
+                  textShadow: '0px 8px 0px #000000',
+                }}
+              >
+                200k+<br /> users world<br /> wide
+              </h3>
+
             </div>
 
-            {/* FOREGROUND TEXT */}
-            <h3
-              className="
-                relative
-                z-10
-                text-[2.8rem]
-                leading-[1.05]
-                font-black
-                tracking-tight
-                text-white
-              "
-              style={{
-                textShadow: '0px 8px 0px #000000',
-              }}
-            >
-              200k+<br /> users world<br /> wide
-            </h3>
-            
-            {/* EMOJI IMAGE */}
-            {/* <img
+            <img
+              src={fifthBg}
+              className={`${mediaWrapper} mr-4`}
+            />
+
+            <img
               src={fifthCard}
               className="
                 absolute
-                bottom-[-10px]
-                right-[-10px]
-                w-[95%]
-                z-10
+                bottom-0
+                right-[-3px]
+                w-[98%]
                 pointer-events-none
                 select-none
               "
-            /> */}
+            />
           </div>
         </div>
 
@@ -223,11 +282,10 @@ function Features() {
               Swap tokens <br /> in <br /> wallet
             </h3>
 
-            {/* Abstract blob placeholders */}
-            <div className="absolute bottom-0 right-0 w-[85%] h-[70%]">
-              <div className="absolute w-[220px] h-[220px] bg-orange-400 rounded-full blur-2xl bottom-0 right-0 opacity-80" />
-              <div className="absolute w-[160px] h-[160px] bg-red-400 rounded-full blur-2xl bottom-10 right-20 opacity-70" />
-            </div>
+            <img
+              src={seventhCard}
+              className={`${mediaWrapper} w-full h-full`}
+            />
           </div>
         </div>
 
