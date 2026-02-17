@@ -62,18 +62,21 @@ function Gateway() {
     >
       {/* Background Pillars Layer */}
       <div className="absolute inset-0 flex items-end justify-center pointer-events-none">
-        
-        {/* Fixed height wrapper so % heights work */}
-        <div className="h-[600px] flex items-end gap-4 w-full">
+
+        <div
+          className="h-[600px] flex items-end gap-4"
+          style={{ width: "max(100%, calc(12 * 80px + 11 * 16px))" }}
+        >
           {pillars.map((height, i) => (
             <div
               key={i}
-              className="pillar w-full rounded-sm"
+              className="pillar rounded-sm"
               style={{
+                flex: "1 0 80px",
                 height: `${height}%`,
                 background:
                   "linear-gradient(180deg, rgba(255, 216, 0, 0) 0%, rgba(254, 194, 24, 0.485577) 62.02%, #FDAB32 100%)",
-                opacity: 0, // start hidden (GSAP animates in)
+                opacity: 0,
               }}
             />
           ))}
@@ -90,9 +93,11 @@ function Gateway() {
           tracking-wide
           font-black
           text-center
+          max-lg:text-[5rem]
+          max-sm:text-[3.5rem]
         "
       >
-        Your Gateway into <br /> the Blockchain
+        Your Gateway <br className="md:hidden" />into <br className="max-md:hidden" /> the<br className="md:hidden" /> Blockchain
       </div>
     </div>
   )

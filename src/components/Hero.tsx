@@ -101,7 +101,7 @@ function Hero() {
               src={leftSpiral} 
               alt="" 
               // Increased negative margin to -mr-48 for more overlap
-              className="h-full w-auto object-cover -mr-48" 
+              className="h-full w-auto object-cover -mr-48 max-sm:-mr-0" 
               style={{ clipPath: 'inset(100% 0 0 0)' }} 
             />
             
@@ -111,7 +111,7 @@ function Hero() {
               src={rightSpiral} 
               alt="" 
               // Increased negative margin to -ml-48 for more overlap
-              className="h-full w-auto object-cover -ml-48" 
+              className="h-full w-auto object-cover -ml-48 " 
               style={{ clipPath: 'inset(0 0 100% 0)' }} 
             />
         </div>
@@ -122,7 +122,7 @@ function Hero() {
             
             <div
               className="
-                text-[5.5rem] leading-[1.1] tracking-wide font-black text-center
+                text-[5.5rem] max-sm:text-[4rem] max-[390px]:text-[2rem] leading-[1.1] tracking-wide font-black text-center
                 drop-shadow-[0px_0px_12px_rgba(89,28,129,0.35)]
               "
               style={{ textShadow: `0 0 0.5px #fff, 0 0 1px #fff` }}
