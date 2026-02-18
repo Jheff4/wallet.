@@ -8,3 +8,7 @@
 .gradientBtn:hover {
   background: #fff;
 }
+
+body {
+  background-color: #131313;
+}

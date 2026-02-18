@@ -18,7 +18,6 @@ function Features() {
     relative
     rounded-xl
     overflow-hidden
-    p-6
     flex
     flex-col
     justify-between
@@ -38,7 +37,7 @@ function Features() {
 
   return (
     <div className="w-full py-4">
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
 
         {/* 1 — NFTs */}
         <div className={wrapper}>
@@ -46,13 +45,13 @@ function Features() {
             style={{ height }}
             className={`bg-[#9B7BB0] ${baseCard}`}
           >
-            <h3 className="text-[2.9rem] leading-[1.1] pt-2 font-bold tracking-wide text-black">
+            <h3 className="text-[2.9rem] leading-[1.1] p-6 pt-6 font-bold tracking-wide text-black">
               Collect, Trade <br />& Show off <br />NFTs
             </h3>
 
             <img
               src={firstCard}
-              className={`${mediaWrapper} w-[75%] absolute left-1/2 -translate-x-1/2`}
+              className={`${mediaWrapper} w-[18rem] absolute left-1/2 -translate-x-1/2 -bottom-8 xl:-bottom-0`}
             />
           </div>
         </div>
@@ -61,7 +60,7 @@ function Features() {
         <div className={wrapper}>
           <div
             style={{ height }}
-            className={`bg-[linear-gradient(180deg,#FF7827_0%,#D05A13_100%)] ${baseCard}`}
+            className={`bg-[linear-gradient(180deg,#FF7827_0%,#D05A13_100%)] ${baseCard} p-6 max-md:p-4`}
           >
             <h3 className="text-[2.9rem] leading-[1.1] font-bold tracking-wide text-black text-end mt-8 mr-2">
               Connect to <br /> Multiple <br /> Dapps
@@ -112,8 +111,9 @@ function Features() {
                   absolute inset-0
                   bg-white
                   rounded-[22px]
-                  flex items-center gap-4
+                  flex items-center gap-4 max-xl:gap-2
                   px-5
+                  max-md:px-4
                 "
                 style={{
                   transform: 'translate(-3px,-50px)',
@@ -126,7 +126,7 @@ function Features() {
                     text-[1.3rem]
                     font-bold
                     text-[#2B2533]
-                    whitespace-nowrap
+                    leading-[1.1]
                   "
                 >
                   Connect wallet
@@ -141,15 +141,15 @@ function Features() {
         <div className={wrapper}>
           <div
             style={{ height }}
-            className={`bg-[#331642] ${baseCard}`}
+            className={`bg-[#331642] ${baseCard} p-6 max-md:p-4`}
           >
             <h3 className="text-[3.8rem] leading-[1.1] font-bold tracking-wide text-white mt-16 z-20">
-              All your <br /> assets <br /> are <br /> secured
+              All your <br /> assets <br className='max-md:hidden'/> are <br className="max-lg:hidden max-md:block"/> secured
             </h3>
 
             <img
               src={thirdCard}
-              className={`${mediaWrapper} w-[70%] bottom-16 right-3`}
+              className={`${mediaWrapper} w-[18rem] lg:w-[70%] bottom-16 right-3`}
             />
           </div>
         </div>
@@ -160,13 +160,13 @@ function Features() {
             style={{ height }}
             className={`bg-[#070723] ${baseCard} p-[0.7rem] pt-4`}
           >
-            <h3 className="text-[3.47rem] leading-none font-bold tracking-wide text-white whitespace-nowrap">
-              10M+ <br /> Transactions <br /> since March, <br /> 2025
+            <h3 className="text-[2.7rem] xs:text-[2.8rem] sm:text-[3rem] md:text-[3.47rem] leading-none font-bold tracking-wide text-white whitespace-nowrap">
+              10M+ <br className="xs:hidden sm:block"/> Transactions <br /> since March, <br /> 2025
             </h3>
 
             <img
               src={fourthCard}
-              className={`${mediaWrapper} w-full`}
+              className={`${mediaWrapper} w-full bottom-0 xs:-bottom-16 sm:-bottom-0 md:-bottom-14 lg:-bottom-8`}
             />
           </div>
         </div>
@@ -232,7 +232,7 @@ function Features() {
 
             <img
               src={fifthBg}
-              className={`${mediaWrapper} mr-4`}
+              className={`${mediaWrapper} mr-4 max-lg:w-[90%]`}
             />
 
             <img

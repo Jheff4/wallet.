@@ -5,7 +5,7 @@ const PrivacyPolicy: React.FC = () => {
   return (
     <>
       <div className="bg-[#131313] min-h-screen text-white max-w-screen overflow-hidden">
-        <Navbar sticky={false} />
+        <Navbar />
         <div className="flex items-center justify-center">
           <div className="max-w-5xl p-4 bg-dark-primary rounded shadow-md">
             <div className="items-center justify-center flex">

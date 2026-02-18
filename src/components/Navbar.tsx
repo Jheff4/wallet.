@@ -15,7 +15,7 @@ function Navbar() {
 
   return (
     <nav
-      className="bg-[#131313] z-20 w-full py-5 flex justify-between items-center fixed px-4"
+      className="bg-[#131313] z-20 w-full py-5 flex justify-between items-center fixed px-4 max-w-screen-2xl mx-auto"
     >
       <button
         onClick={() => setOpen(true)}
