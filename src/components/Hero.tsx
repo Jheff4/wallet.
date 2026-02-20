@@ -25,14 +25,11 @@ function Hero() {
     const unravelSpeed = 1.2 
     const unravelEase = 'power3.out' 
 
-    // 1. Base Background Reveal
     tl.fromTo(containerRef.current, 
       { x: -200, opacity: 0 },
       { x: 0, opacity: 1, duration: 1.2, ease: 'power2.out' }
     )
 
-    // 2. Left Spiral (Unravels Bottom -> Top)
-    // Starts 0.8s before background finishes (Feels immediate)
     tl.fromTo(leftSpiralRef.current,
       { 
         clipPath: 'inset(100% 0 0 0)', 
@@ -47,8 +44,6 @@ function Hero() {
       "-=0.8" 
     )
 
-    // 3. Right Spiral (Unravels Top -> Bottom)
-    // Starts when Left is halfway done
     tl.fromTo(rightSpiralRef.current,
       { 
         clipPath: 'inset(0 0 100% 0)', 
@@ -99,8 +94,7 @@ function Hero() {
             <img 
               ref={leftSpiralRef}
               src={leftSpiral} 
-              alt="" 
-              // Increased negative margin to -mr-48 for more overlap
+              alt=""
               className="h-full w-auto object-cover -mr-48 max-sm:-mr-0" 
               style={{ clipPath: 'inset(100% 0 0 0)' }} 
             />
@@ -109,8 +103,7 @@ function Hero() {
             <img 
               ref={rightSpiralRef}
               src={rightSpiral} 
-              alt="" 
-              // Increased negative margin to -ml-48 for more overlap
+              alt=""
               className="h-full w-auto object-cover -ml-48 " 
               style={{ clipPath: 'inset(0 0 100% 0)' }} 
             />
