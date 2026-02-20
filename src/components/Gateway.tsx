@@ -13,80 +13,80 @@ function Gateway() {
   ]
 
   useEffect(() => {
-  const ctx = gsap.context(() => {
-    const el = containerRef.current
-    if (!el) return
+    const ctx = gsap.context(() => {
+      const el = containerRef.current
+      if (!el) return
 
-    const heading = el.querySelector(".gateway-heading")
-    if (!heading) return
+      const heading = el.querySelector(".gateway-heading")
+      if (!heading) return
 
-    // Wrap only text nodes safely
-    const wrapWords = (node: ChildNode) => {
-      if (node.nodeType === 3) { // TEXT NODE
-        const words = node.textContent?.split(" ") || []
-        const frag = document.createDocumentFragment()
+      // Wrap only text nodes safely
+      const wrapWords = (node: ChildNode) => {
+        if (node.nodeType === 3) { // TEXT NODE
+          const words = node.textContent?.split(" ") || []
+          const frag = document.createDocumentFragment()
 
-        words.forEach((word) => {
-          if (!word) return
-          const span = document.createElement("span")
-          span.className = "gateway-word inline-block"
-          span.textContent = word
-          frag.appendChild(span)
-          frag.appendChild(document.createTextNode(" "))
-        })
+          words.forEach((word) => {
+            if (!word) return
+            const span = document.createElement("span")
+            span.className = "gateway-word inline-block"
+            span.textContent = word
+            frag.appendChild(span)
+            frag.appendChild(document.createTextNode(" "))
+          })
 
-        node.replaceWith(frag)
+          node.replaceWith(frag)
+        }
       }
-    }
 
-    heading.childNodes.forEach(wrapWords)
+      heading.childNodes.forEach(wrapWords)
 
-    const tl = gsap.timeline({
-      scrollTrigger: {
-        trigger: el,
-        start: "top bottom-=250",
-        toggleActions: "play none none reverse",
-      },
-    })
+      const tl = gsap.timeline({
+        scrollTrigger: {
+          trigger: el,
+          start: "top bottom-=250",
+          toggleActions: "play none none reverse",
+        },
+      })
 
-    // Pillars animation
-    tl.from(".pillar", {
-      opacity: 0,
-      y: 60,
-      scaleY: 0.85,
-      duration: 0.9,
-      ease: "power3.out",
-      stagger: 0.06,
-    })
-
-    // Width settle
-    .fromTo(
-      ".pillars-row",
-      { scaleX: 1.06 },
-      {
-        scaleX: 1,
-        duration: 0.8,
-        ease: "power2.out",
-      },
-      "-=0.6"
-    )
-
-    // Words animate
-    .from(
-      ".gateway-word",
-      {
-        x: 80,
+      // Pillars animation
+      tl.from(".pillar", {
         opacity: 0,
-        duration: 0.4,
+        y: 60,
+        scaleY: 0.85,
+        duration: 0.9,
         ease: "power3.out",
-        stagger: 0.08,
-      },
-      "-=0.5"
-    )
-  }, containerRef)
+        stagger: 0.06,
+      })
 
-  return () => ctx.revert()
-}, [])
+      // Width settle
+      .fromTo(
+        ".pillars-row",
+        { scaleX: 1.06 },
+        {
+          scaleX: 1,
+          duration: 0.8,
+          ease: "power2.out",
+        },
+        "-=0.6"
+      )
+
+      // Words animate
+      .from(
+        ".gateway-word",
+        {
+          x: 80,
+          opacity: 0,
+          duration: 0.4,
+          ease: "power3.out",
+          stagger: 0.08,
+        },
+        "-=0.5"
+      )
+    }, containerRef)
+
+    return () => ctx.revert()
+  }, [])
 
 
   return (

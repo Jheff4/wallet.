@@ -16,60 +16,73 @@ function Hero() {
   const rightSpiralRef = useRef<HTMLImageElement>(null)
 
   useGSAP(() => {
-    if (!contentRef.current || !containerRef.current) return
+  if (!contentRef.current || !containerRef.current) return
 
-    const tl = gsap.timeline()
-    const contentElements = contentRef.current.children
-    
-    // Animation Settings
-    const unravelSpeed = 1.2 
-    const unravelEase = 'power3.out' 
+  const tl = gsap.timeline()
+  const words = contentRef.current.querySelectorAll(".hero-word")
 
-    tl.fromTo(containerRef.current, 
-      { x: -200, opacity: 0 },
-      { x: 0, opacity: 1, duration: 1.2, ease: 'power2.out' }
-    )
+  // Gradient
+  tl.fromTo(containerRef.current,
+    { xPercent: -30, opacity: 1 },
+    { 
+      xPercent: 0,
+      duration: 0.9,
+      ease: "power3.out"
+    }
+  )
 
-    tl.fromTo(leftSpiralRef.current,
-      { 
-        clipPath: 'inset(100% 0 0 0)', 
-        y: 50 
-      }, 
-      { 
-        clipPath: 'inset(0% 0 0 0)',   
-        y: 0,
-        duration: unravelSpeed, 
-        ease: unravelEase 
-      },
-      "-=0.8" 
-    )
-
-    tl.fromTo(rightSpiralRef.current,
-      { 
-        clipPath: 'inset(0 0 100% 0)', 
-        y: -50 
-      }, 
-      { 
-        clipPath: 'inset(0 0 0% 0)', 
-        y: 0,
-        duration: unravelSpeed, 
-        ease: unravelEase 
-      },
-      `-=${unravelSpeed / 1.8}` 
-    )
-
-    // 4. Content Entry
-    tl.from(contentElements, {
-      y: 30,
-      scale: 0.8,
-      opacity: 0,
+  // Spirals
+  tl.fromTo(leftSpiralRef.current,
+    { clipPath: 'inset(100% 0 0 0)', y: 40 },
+    { 
+      clipPath: 'inset(0% 0 0 0)',
+      y: 0,
       duration: 0.8,
-      stagger: 0.1,
-      ease: 'back.out(2)', 
-      clearProps: 'all' 
-    }, "-=0.5") 
+      ease: "power3.out"
+    },
+    "-=0.5"
+  )
 
-  }, { scope: containerRef })
+  tl.fromTo(rightSpiralRef.current,
+    { clipPath: 'inset(0 0 100% 0)', y: -40 },
+    { 
+      clipPath: 'inset(0 0 0% 0)',
+      y: 0,
+      duration: 0.8,
+      ease: "power3.out"
+    },
+    "-=0.4"
+  )
+
+  // WORD 1
+  tl.fromTo(words[0],
+    { x: -60, scale: 1.2, opacity: 0 },
+    { x: 0, scale: 1, opacity: 1, duration: 0.35, ease: "power3.out" },
+    "-=0.3"
+  )
+
+  // WORD 2
+  tl.fromTo(words[1],
+    { y: 20, scale: 1.15, opacity: 0 },
+    { y: 0, scale: 1, opacity: 1, duration: 0.3, ease: "power3.out" },
+    "-=0.15"
+  )
+
+  // WORD 3
+  tl.fromTo(words[2],
+    { x: 60, scale: 1.2, opacity: 0 },
+    { x: 0, scale: 1, opacity: 1, duration: 0.35, ease: "power3.out" },
+    "-=0.15"
+  )
+
+  // WORD 4
+  tl.fromTo(words[3],
+    { y: 25, scale: 1.15, opacity: 0 },
+    { y: 0, scale: 1, opacity: 1, duration: 0.3, ease: "power3.out" },
+    "-=0.1"
+  )
+
+}, { scope: containerRef })
 
   const handleMouseEnter = () => {
     gsap.to(buttonRef.current, { scale: 1.05, duration: 0.2 })
@@ -87,7 +100,7 @@ function Hero() {
           background: `linear-gradient(180deg, #9B7BB0 0%, #581A81 100%)`
         }}
       >
-        {/* --- SPIRAL LAYERS --- */}
+        {/* SPIRAL LAYERS */}
         <div className="absolute inset-0 flex justify-center items-center z-0 pointer-events-none">
             
             {/* Left Spiral */}
@@ -109,7 +122,7 @@ function Hero() {
             />
         </div>
 
-        {/* --- MAIN CONTENT --- */}
+        {/* MAIN CONTENT */}
         <div className="text-white w-full relative z-10">
           <div ref={contentRef} className="flex mt-20 gap-10 items-center flex-col">
             
@@ -120,7 +133,11 @@ function Hero() {
               "
               style={{ textShadow: `0 0 0.5px #fff, 0 0 1px #fff` }}
             >
-              Your daily Web3 <br />Companion
+              <span className="hero-word inline-block">Your</span>{" "}
+              <span className="hero-word inline-block">daily</span>{" "}
+              <span className="hero-word inline-block">Web3</span>
+              <br />
+              <span className="hero-word inline-block">Companion</span>
             </div>
 
             <div className="flex flex-wrap text-base gap-6 items-center font-bold text-darkText mb-10">
