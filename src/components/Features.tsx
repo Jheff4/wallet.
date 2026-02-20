@@ -48,7 +48,7 @@ function Features() {
 
   const baseCard = `
     relative
-    rounded-xl
+    rounded-lg
     overflow-hidden
     flex
     flex-col
