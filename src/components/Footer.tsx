@@ -23,25 +23,24 @@ function Footer() {
       const tl = gsap.timeline({
         scrollTrigger: {
           trigger: sectionRef.current,
-          start: "top bottom-=80",
+          start: "top bottom-=120",
           toggleActions: "play none none reverse",
         }
       })
 
       // INITIAL STATES
       gsap.set(sectionRef.current, {
-        scale: 0.8,
+        scale: 0.9,
         transformOrigin: "center bottom"
       })
 
-      gsap.set(".footer-headline", { opacity: 0, y: 60 })
-      gsap.set(".footer-subtext", { opacity: 0, y: 40 })
-      gsap.set(".footer-btn-x", { opacity: 0, y: 40 })
+      gsap.set(".footer-headline", { opacity: 0, y: 50 })
+      gsap.set(".footer-subtext", { opacity: 0, y: 30 })
+      gsap.set(".footer-btn-x", { opacity: 0, y: 30 })
       gsap.set(".footer-btn-discord", { opacity: 0, y: 30 })
 
-      // Hands scale from bottom
       gsap.set(".hand-1, .hand-2, .hand-3, .hand-4, .hand-6", {
-        scale: 0.7,
+        scale: 0.75,
         opacity: 0,
         transformOrigin: "bottom center"
       })
@@ -62,35 +61,35 @@ function Footer() {
       // SECTION SCALE IN
       .to(sectionRef.current, {
         scale: 1,
-        duration: 1.2,
-        ease: "power4.out"
+        duration: 0.7,
+        ease: "power3.out"
       })
 
       // GLARE SWEEP RIGHT
       .to(".glare", {
         rotate: 12,
-        duration: 2.2,
+        duration: 1.2,
         ease: "sine.inOut"
-      }, "-=1")
+      }, "-=0.5")
 
       // HEADLINE + HAND 1
       .to(".footer-headline", {
         opacity: 1,
         y: 0,
-        duration: 0.8,
+        duration: 0.5,
         ease: "power3.out"
-      }, "-=1.6")
+      }, "-=1")
 
       .to(".hand-1", {
-        scale: 1.08,
+        scale: 1.1,
         opacity: 1,
-        duration: 0.35,
+        duration: 0.2,
         ease: "power4.out"
       }, "<")
 
       .to(".hand-1", {
         scale: 1,
-        duration: 0.35,
+        duration: 0.2,
         ease: "power2.out"
       })
 
@@ -98,100 +97,98 @@ function Footer() {
       .to(".footer-subtext", {
         opacity: 1,
         y: 0,
-        duration: 0.7,
+        duration: 0.4,
         ease: "power2.out"
-      }, "-=1.2")
+      }, "-=0.4")
 
       .to(".hand-2", {
-        scale: 1.05,
+        scale: 1.06,
         opacity: 1,
-        duration: 0.5,
+        duration: 0.25,
         ease: "power3.out"
       }, "<")
 
       .to(".hand-2", {
         scale: 1,
-        duration: 0.3,
+        duration: 0.2,
         ease: "power2.out"
       })
 
-      // BUTTON X + HAND 3
+      // X BUTTON + HAND 3
       .to(".footer-btn-x", {
         opacity: 1,
         y: 0,
-        duration: 0.7,
+        duration: 0.4,
         ease: "power3.out"
-      }, "-=1")
+      }, "-=0.3")
 
       .to(".hand-3", {
-        scale: 1.1,
+        scale: 1.12,
         opacity: 1,
-        duration: 0.35,
+        duration: 0.2,
         ease: "power4.out"
       }, "<")
 
       .to(".hand-3", {
         scale: 1,
-        duration: 0.3,
+        duration: 0.18,
         ease: "power2.out"
       })
 
-      // BUTTON DISCORD + HAND 4 + HAND 5
+      // DISCORD + HAND 4 + HAND 5
       .to(".footer-btn-discord", {
         opacity: 1,
         y: 0,
-        duration: 0.7,
+        duration: 0.4,
         ease: "power2.out"
-      })
+      }, "-=0.3")
 
       .to(".hand-4", {
-        scale: 1.05,
+        scale: 1.08,
         opacity: 1,
-        duration: 0.4,
+        duration: 0.18,
         ease: "power3.out"
       }, "<")
 
       .to(".hand-4", {
         scale: 1,
-        duration: 0.25,
+        duration: 0.18,
         ease: "power2.out"
       })
 
       .to(".hand-5", {
         scale: 1,
         opacity: 1,
-        duration: 0.4,
+        duration: 0.2,
         ease: "back.out(2)"
       }, "<")
 
       // HAND 6
       .to(".hand-6", {
-        scale: 1.05,
+        scale: 1.06,
         opacity: 1,
-        duration: 0.5,
+        duration: 0.25,
         ease: "power2.out"
-      })
+      }, "-=0.15")
 
       .to(".hand-6", {
         scale: 1,
-        duration: 0.25,
+        duration: 0.18,
         ease: "power2.out"
       })
 
-      // GLARE SWEEP BACK LEFT
+      // GLARE BACK LEFT
       .to(".glare", {
         rotate: -5,
-        duration: 1.2,
+        duration: 0.6,
         ease: "sine.inOut"
       })
 
-      // FINAL SMALL RIGHT SETTLE
       .to(".glare", {
         rotate: 4,
-        duration: 0.8,
+        duration: 0.5,
         ease: "sine.out"
       })
-
     }, sectionRef)
 
     return () => ctx.revert()
@@ -200,20 +197,18 @@ function Footer() {
   return (
     <footer ref={sectionRef}>
       <div
-        style={{
-          background: `
-            url(${coins}) 31% 100% / 80% no-repeat,
-            #ED6D20
-          `,
-        }}
-        className="w-full overflow-hidden rounded-lg pb-8 relative"
+        className="w-full overflow-hidden rounded-lg pb-8 relative bg-[#ED6D20]"
       >
-
-        {/* GLARE (now animatable) */}
         <img
           src={glare}
           alt=""
-          className="glare absolute bottom-0 left-1/2 -translate-x-1/2 w-[120%] pointer-events-none select-none"
+          className="glare absolute bottom-0 left-1/2 -translate-x-1/2 w-[85%] pointer-events-none select-none"
+        />
+
+        <img
+          src={coins}
+          alt=""
+          className="absolute bottom-0 left-[6.5%] w-[80%] pointer-events-none select-none"
         />
 
         {/* LEFT HANDS */}
