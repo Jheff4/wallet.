@@ -7,11 +7,44 @@ import seventhCard from '../assets/seventh.svg'
 import sixthBg from '../assets/sixth-bg.svg'
 import eighthCard from '../assets/eighth.svg'
 import walletIcon from '../assets/razor.png'
+import { useEffect, useRef } from "react"
+import gsap from "gsap"
+import { ScrollTrigger } from "gsap/ScrollTrigger"
+
+gsap.registerPlugin(ScrollTrigger)
 
 function Features() {
+  const sectionRef = useRef<HTMLDivElement | null>(null)
+
+  useEffect(() => {
+    const ctx = gsap.context(() => {
+      const cards = gsap.utils.toArray<HTMLElement>(".feature-card")
+
+      const tl = gsap.timeline({
+        scrollTrigger: {
+          trigger: sectionRef.current,
+          start: "top bottom-=200",
+          toggleActions: "play none none reverse",
+        },
+      })
+
+      tl.from(cards, {
+        y: 90,
+        opacity: 0,
+        duration: 1,
+        ease: "power3.out",
+        stagger: {
+          each: 0.19,
+        },
+      })
+    }, sectionRef)
+
+    return () => ctx.revert()
+  }, [])
+
   const height = 440
 
-  const wrapper = 'group [perspective:1000px]'
+  const wrapper = 'feature-card group [perspective:1000px]'
 
   const baseCard = `
     relative
@@ -35,7 +68,7 @@ function Features() {
   `
 
   return (
-    <div className="w-full py-4">
+    <div ref={sectionRef} className="w-full py-4">
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
 
         {/* 1 — NFTs */}
