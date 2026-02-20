@@ -24,5 +24,4 @@ export default {
     },
   },
   plugins: [],
-  important: true, // Add this to ensure styles are applied with higher specificity
 }

@@ -8,52 +8,86 @@ function Gateway() {
   const containerRef = useRef<HTMLDivElement | null>(null)
 
   const pillars = [
-    80,
-    68,
-    56,
-    44,
-    32,
-    20,
-    20,
-    32,
-    44,
-    56,
-    68,
-    80,
+    80, 68, 56, 44, 32, 20,
+    20, 32, 44, 56, 68, 80,
   ]
 
   useEffect(() => {
-    const ctx = gsap.context(() => {
-      gsap.fromTo(
-        ".pillar",
-        {
-          opacity: 0,
-          scaleY: 0.7,
-          scaleX: 0.9,
-          y: 80,
-          filter: "blur(4px)",
-        },
-        {
-          opacity: 0.9,
-          scaleY: 1,
-          scaleX: 1,
-          y: 0,
-          filter: "blur(0px)",
-          duration: 1.2,
-          ease: "power3.out",
-          stagger: 0.06,
-          scrollTrigger: {
-            trigger: containerRef.current,
-            start: "top 75%",
-            end: "top 40%",
-            scrub: false,
-          },
-        }
-      )
-    }, containerRef)
+  const ctx = gsap.context(() => {
+    const el = containerRef.current
+    if (!el) return
 
-    return () => ctx.revert()
-  }, [])
+    const heading = el.querySelector(".gateway-heading")
+    if (!heading) return
+
+    // Wrap only text nodes safely
+    const wrapWords = (node: ChildNode) => {
+      if (node.nodeType === 3) { // TEXT NODE
+        const words = node.textContent?.split(" ") || []
+        const frag = document.createDocumentFragment()
+
+        words.forEach((word) => {
+          if (!word) return
+          const span = document.createElement("span")
+          span.className = "gateway-word inline-block"
+          span.textContent = word
+          frag.appendChild(span)
+          frag.appendChild(document.createTextNode(" "))
+        })
+
+        node.replaceWith(frag)
+      }
+    }
+
+    heading.childNodes.forEach(wrapWords)
+
+    const tl = gsap.timeline({
+      scrollTrigger: {
+        trigger: el,
+        start: "top bottom-=250",
+        toggleActions: "play none none reverse",
+      },
+    })
+
+    // Pillars animation
+    tl.from(".pillar", {
+      opacity: 0,
+      y: 60,
+      scaleY: 0.85,
+      duration: 0.9,
+      ease: "power3.out",
+      stagger: 0.06,
+    })
+
+    // Width settle
+    .fromTo(
+      ".pillars-row",
+      { scaleX: 1.06 },
+      {
+        scaleX: 1,
+        duration: 0.8,
+        ease: "power2.out",
+      },
+      "-=0.6"
+    )
+
+    // Words animate
+    .from(
+      ".gateway-word",
+      {
+        x: 80,
+        opacity: 0,
+        duration: 0.4,
+        ease: "power3.out",
+        stagger: 0.08,
+      },
+      "-=0.5"
+    )
+  }, containerRef)
+
+  return () => ctx.revert()
+}, [])
+
 
   return (
     <div
@@ -64,7 +98,7 @@ function Gateway() {
       <div className="absolute inset-0 flex items-end justify-center pointer-events-none">
 
         <div
-          className="h-[600px] flex items-end gap-4"
+          className="pillars-row h-[600px] flex items-end gap-4"
           style={{ width: "max(100%, calc(12 * 80px + 11 * 16px))" }}
         >
           {pillars.map((height, i) => (
@@ -76,16 +110,15 @@ function Gateway() {
                 height: `${height}%`,
                 background:
                   "linear-gradient(180deg, rgba(255, 216, 0, 0) 0%, rgba(254, 194, 24, 0.485577) 62.02%, #FDAB32 100%)",
-                opacity: 0,
               }}
             />
           ))}
         </div>
       </div>
 
-      {/* Content */}
       <div
         className="
+          gateway-heading
           relative z-10
           -translate-y-1/4
           text-[5.5rem]
@@ -97,7 +130,7 @@ function Gateway() {
           max-sm:text-[3.5rem]
         "
       >
-        Your Gateway <br className="md:hidden" />into <br className="max-md:hidden" /> the<br className="md:hidden" /> Blockchain
+        Your <span> </span> Gateway<span> </span> <br className="md:hidden" />into<span> </span> <br className="max-md:hidden" /> the<span> </span> <br className="md:hidden" /> Blockchain
       </div>
     </div>
   )

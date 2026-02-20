@@ -2,7 +2,6 @@ import firstCard from '../assets/first.svg'
 import thirdCard from '../assets/third.svg'
 import fourthCard from '../assets/fourth.svg'
 import fifthCard from '../assets/fifth.svg'
-import fifthBg from '../assets/fifth-bg.svg'
 import sixthCard from '../assets/sixth.svg'
 import seventhCard from '../assets/seventh.svg'
 import sixthBg from '../assets/sixth-bg.svg'
@@ -160,13 +159,13 @@ function Features() {
             style={{ height }}
             className={`bg-[#070723] ${baseCard} p-[0.7rem] pt-4`}
           >
-            <h3 className="text-[2.7rem] xs:text-[2.8rem] sm:text-[3rem] md:text-[3.2rem] leading-none font-bold tracking-wide text-white whitespace-nowrap">
+            <h3 className="text-[2.7rem] xs:text-[2.8rem] sm:text-[3rem] md:text-[3.2rem] xl:text-[3.5rem] leading-none font-bold tracking-wide text-white whitespace-nowrap">
               10M+ <br className="xs:hidden sm:block"/> Transactions <br /> since March, <br /> 2025
             </h3>
 
             <img
               src={fourthCard}
-              className={`${mediaWrapper} w-full bottom-0 xs:-bottom-16 sm:-bottom-0 md:-bottom-14 lg:-bottom-8`}
+              className={`${mediaWrapper} w-full bottom-0 xs:-bottom-16 sm:-bottom-0 md:-bottom-14 lg:-bottom-8 xl:-bottom-0`}
             />
           </div>
         </div>
@@ -231,7 +230,6 @@ function Features() {
               >
                 200k+<br /> users world<br /> wide
               </h3>
-
             </div>
 
             <h3
