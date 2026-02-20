@@ -69,8 +69,7 @@ function Features() {
 
   return (
     <div ref={sectionRef} className="w-full py-4">
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
-
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 max-2xs:gap-2">
         {/* 1 — NFTs */}
         <div className={wrapper}>
           <div
@@ -358,7 +357,7 @@ function Features() {
 
             <img
               src={seventhCard}
-              className={`${mediaWrapper} w-full h-full xs:w-[90%] xs:h-[120%] lg:w-full`}
+              className={`${mediaWrapper} w-full h-full xs:w-[90%] xs:h-[120%] lg:w-full xl:h-full`}
             />
           </div>
         </div>

@@ -16,79 +16,110 @@ function Hero() {
   const rightSpiralRef = useRef<HTMLImageElement>(null)
 
   useGSAP(() => {
-  if (!contentRef.current || !containerRef.current) return
+    if (!contentRef.current || !containerRef.current) return
 
-  const tl = gsap.timeline()
-  const words = contentRef.current.querySelectorAll(".hero-word")
+    const tl = gsap.timeline()
+    const words = contentRef.current.querySelectorAll(".hero-word")
 
-  // Gradient
-  tl.fromTo(containerRef.current,
-    { xPercent: -30, opacity: 1 },
-    { 
-      xPercent: 0,
-      duration: 0.9,
-      ease: "power3.out"
-    }
-  )
+    // Gradient
+    tl.fromTo(containerRef.current,
+      { xPercent: -30, opacity: 1 },
+      { 
+        xPercent: 0,
+        duration: 0.9,
+        ease: "power3.out"
+      }
+    )
 
-  // Spirals
-  tl.fromTo(leftSpiralRef.current,
-    { clipPath: 'inset(100% 0 0 0)', y: 40 },
-    { 
-      clipPath: 'inset(0% 0 0 0)',
-      y: 0,
-      duration: 0.8,
-      ease: "power3.out"
-    },
-    "-=0.5"
-  )
+    // Spirals
+    tl.fromTo(leftSpiralRef.current,
+      { clipPath: 'inset(100% 0 0 0)', y: 40 },
+      { 
+        clipPath: 'inset(0% 0 0 0)',
+        y: 0,
+        duration: 0.8,
+        ease: "power3.out"
+      },
+      "-=0.5"
+    )
 
-  tl.fromTo(rightSpiralRef.current,
-    { clipPath: 'inset(0 0 100% 0)', y: -40 },
-    { 
-      clipPath: 'inset(0 0 0% 0)',
-      y: 0,
-      duration: 0.8,
-      ease: "power3.out"
-    },
-    "-=0.4"
-  )
+    tl.fromTo(rightSpiralRef.current,
+      { clipPath: 'inset(0 0 100% 0)', y: -40 },
+      { 
+        clipPath: 'inset(0 0 0% 0)',
+        y: 0,
+        duration: 0.8,
+        ease: "power3.out"
+      },
+      "-=0.4"
+    )
 
-  // WORD 1
-  tl.fromTo(words[0],
-    { x: -60, scale: 1.2, opacity: 0 },
-    { x: 0, scale: 1, opacity: 1, duration: 0.35, ease: "power3.out" },
-    "-=0.3"
-  )
+    // WORD 1
+    tl.fromTo(words[0],
+      { x: -60, scale: 1.2, opacity: 0 },
+      { x: 0, scale: 1, opacity: 1, duration: 0.35, ease: "power3.out" },
+      "-=0.3"
+    )
 
-  // WORD 2
-  tl.fromTo(words[1],
-    { y: 20, scale: 1.15, opacity: 0 },
-    { y: 0, scale: 1, opacity: 1, duration: 0.3, ease: "power3.out" },
-    "-=0.15"
-  )
+    // WORD 2
+    tl.fromTo(words[1],
+      { y: 20, scale: 1.15, opacity: 0 },
+      { y: 0, scale: 1, opacity: 1, duration: 0.3, ease: "power3.out" },
+      "-=0.15"
+    )
 
-  // WORD 3
-  tl.fromTo(words[2],
-    { x: 60, scale: 1.2, opacity: 0 },
-    { x: 0, scale: 1, opacity: 1, duration: 0.35, ease: "power3.out" },
-    "-=0.15"
-  )
+    // WORD 3
+    tl.fromTo(words[2],
+      { x: 60, scale: 1.2, opacity: 0 },
+      { x: 0, scale: 1, opacity: 1, duration: 0.35, ease: "power3.out" },
+      "-=0.15"
+    )
 
-  // WORD 4
-  tl.fromTo(words[3],
-    { y: 25, scale: 1.15, opacity: 0 },
-    { y: 0, scale: 1, opacity: 1, duration: 0.3, ease: "power3.out" },
-    "-=0.1"
-  )
+    // WORD 4
+    tl.fromTo(words[3],
+      { y: 25, scale: 1.15, opacity: 0 },
+      { y: 0, scale: 1, opacity: 1, duration: 0.3, ease: "power3.out" },
+      "-=0.1"
+    )
 
-}, { scope: containerRef })
+  }, { scope: containerRef })
+
+  const pulseTween = useRef<gsap.core.Tween | null>(null)
 
   const handleMouseEnter = () => {
-    gsap.to(buttonRef.current, { scale: 1.05, duration: 0.2 })
+    if (!buttonRef.current) return
+
+    // Base hover scale + glow
+    gsap.to(buttonRef.current, {
+      scale: 1.06,
+      boxShadow: "0 0 25px rgba(255,255,255,0.8), 0 0 60px rgba(255,255,255,0.4)",
+      duration: 0.25,
+      ease: "power3.out"
+    })
+
+    // Subtle breathing pulse
+    pulseTween.current = gsap.to(buttonRef.current, {
+      scale: 1.09,
+      duration: 1.2,
+      ease: "sine.inOut",
+      yoyo: true,
+      repeat: -1
+    })
   }
+
   const handleMouseLeave = () => {
-    gsap.to(buttonRef.current, { scale: 1, duration: 0.2 })
+    if (!buttonRef.current) return
+
+    // Kill pulse loop
+    pulseTween.current?.kill()
+
+    // Return to normal
+    gsap.to(buttonRef.current, {
+      scale: 1,
+      boxShadow: "0 0 0px rgba(255,255,255,0)",
+      duration: 0.25,
+      ease: "power3.out"
+    })
   }
 
   return (
@@ -144,24 +175,14 @@ function Hero() {
               <a
                 ref={buttonRef}
                 href="https://chromewebstore.google.com/detail/razor-wallet/fdcnegogpncmfejlfnffnofpngdiejii"
-                className="group relative flex py-[0.8rem] px-8 gap-2 rounded-2xl items-center bg-white cursor-pointer overflow-hidden"
+                className="group relative flex py-[0.8rem] px-8 max-2xs:px-4 gap-2 rounded-2xl items-center bg-white cursor-pointer overflow-hidden"
                 onMouseEnter={handleMouseEnter}
                 onMouseLeave={handleMouseLeave}
               >
-                <div 
-                  className="
-                    absolute top-0 left-0 w-full h-full 
-                    bg-gradient-to-r from-transparent via-white/60 to-transparent 
-                    -translate-x-[100%] skew-x-12 
-                    transition-transform duration-700 ease-in-out
-                    group-hover:translate-x-[200%] pointer-events-none
-                  "
-                />
                 <img className="w-9 h-9 relative z-10" src={chromeLogo} alt="extension" />
                 <div className="relative z-10">Download for Chrome</div>
               </a>
             </div>
-            
           </div>
         </div>
       </div>

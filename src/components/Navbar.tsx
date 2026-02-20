@@ -15,14 +15,8 @@ function Navbar() {
 
   return (
     <nav
-      className="bg-[#131313] z-20 w-full py-5 flex justify-between items-center fixed px-4 max-w-screen-2xl mx-auto"
+      className="bg-[#131313] z-20 w-full py-5 max-xs:py-4 max-2xs:py-3 flex justify-between items-center fixed px-4 max-xs:px-3 max-2xs:px-2 max-w-screen-2xl mx-auto"
     >
-      <button
-        onClick={() => setOpen(true)}
-        className="text-3xl block md:hidden"
-      >
-        <LiaBarsSolid />
-      </button>
       <div className="flex justify-between items-center w-full">
         <div className="flex items-center gap-4 cursor-pointer">
           <img
@@ -33,12 +27,13 @@ function Navbar() {
             Razor Wallet
           </span>
         </div>
+
         {isOpen && (
           <div
             onClick={() => setOpen(false)}
             className="fixed top-0 left-0 w-full h-full text-white bg-black p-10 transition-all ease-in-out"
           >
-            <button className="ml-auto block text-3xl">
+            <button className="ml-auto block text-2xl">
               <RiCloseLargeLine onClick={() => setOpen(false)} />
             </button>
             <div className="mt-5 gap-3 font-bold flex flex-col">
@@ -54,7 +49,8 @@ function Navbar() {
             </div>
           </div>
         )}
-        <div className="hidden md:flex text-base gap-[5rem]">
+
+        <div className="hidden md:flex text-base gap-[5rem] max-lg:gap-[3rem] ml-24">
           {navlinks.map((item) => (
             <a
               className="hover:text-[#949494] transition-all duration-300 text-white"
@@ -65,10 +61,11 @@ function Navbar() {
             </a>
           ))}
         </div>
+
         <div className="flex md:gap-8 gap-3 items-center">
           <a
             href=""
-            className=""
+            className="max-md:hidden"
           >
             <img
             className="w-8 h-8 transition-transform duration-300 hover:rotate-12"
@@ -76,9 +73,10 @@ function Navbar() {
             alt="Apple"
           />
           </a>
+
           <a
             href=""
-            className=""
+            className="max-md:hidden"
           >
             <img
             className="w-7 h-7 transition-transform duration-300 hover:rotate-12"
@@ -86,12 +84,19 @@ function Navbar() {
             alt="Google"
           />
           </a>
+
           <a
             href="https://chromewebstore.google.com/detail/razor-wallet/fdcnegogpncmfejlfnffnofpngdiejii"
             className="rounded-[18px] px-8 md:px-8 py-3 text-base text-[#271F30] font-semibold bg-[#FFC80F] hover:bg-white transition duration-500"
           >
             Download
           </a>
+          <button
+            onClick={() => setOpen(true)}
+            className="text-2xl block md:hidden text-white"
+          >
+            <LiaBarsSolid />
+          </button>
         </div>
       </div>
     </nav>
