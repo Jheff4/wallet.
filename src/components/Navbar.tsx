@@ -47,6 +47,30 @@ function Navbar() {
                 </a>
               ))}
             </div>
+
+            <div className="flex gap-10 items-center justify-center pt-20">
+              <a
+                href=""
+                className="md:hidden"
+              >
+                <img
+                className="w-10 h-10 transition-transform duration-300 hover:rotate-12"
+                src={appleIcon}
+                alt="Apple"
+              />
+              </a>
+
+              <a
+                href=""
+                className="md:hidden"
+              >
+                <img
+                className="w-10 h-10 transition-transform duration-300 hover:rotate-12"
+                src={googleIcon}
+                alt="Google"
+              />
+              </a>
+            </div>
           </div>
         )}
 
