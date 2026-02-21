@@ -37,6 +37,31 @@ function Features() {
           each: 0.19,
         },
       })
+
+      tl.from(".wallet-card", {
+        y: 30,
+        opacity: 0,
+        scale: 0.97,
+        duration: 0.7,
+        ease: "power3.out",
+        stagger: {
+          each: 0.08,
+          from: "end"
+        }
+      }, "-=0.4")
+
+      tl.add(() => {
+        gsap.to(".wallet-card", {
+          y: "+=3",
+          duration: 2.5,
+          yoyo: true,
+          repeat: -1,
+          ease: "sine.inOut",
+          stagger: {
+            each: 0.4
+          }
+        })
+      })
     }, sectionRef)
 
     return () => ctx.revert()
@@ -102,7 +127,7 @@ function Features() {
 
               {/* CARD 5 */}
               <div
-                className="absolute inset-0 rounded-[22px]"
+                className="wallet-card absolute inset-0 rounded-[22px]"
                 style={{
                   background: 'rgba(255,152,91,0.4)',
                   transform: 'translate(75px,50px)',
@@ -111,7 +136,7 @@ function Features() {
 
               {/* CARD 4 */}
               <div
-                className="absolute inset-0 rounded-[22px]"
+                className="wallet-card absolute inset-0 rounded-[22px]"
                 style={{
                   background: '#FF985B',
                   transform: 'translate(55px,27px)',
@@ -120,7 +145,7 @@ function Features() {
 
               {/* CARD 3 */}
               <div
-                className="absolute inset-0 rounded-[22px]"
+                className="wallet-card absolute inset-0 rounded-[22px]"
                 style={{
                   background: '#FFC4A0',
                   transform: 'translate(35px,4px)',
@@ -129,7 +154,7 @@ function Features() {
 
               {/* CARD 2 */}
               <div
-                className="absolute inset-0 rounded-[22px]"
+                className="wallet-card absolute inset-0 rounded-[22px]"
                 style={{
                   background: '#FFDFCB',
                   transform: 'translate(14px,-24px)',
@@ -139,6 +164,7 @@ function Features() {
               {/* CARD 1 — MAIN */}
               <div
                 className="
+                  wallet-card
                   absolute inset-0
                   bg-white
                   rounded-[22px]

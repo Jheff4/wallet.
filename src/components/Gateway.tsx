@@ -78,69 +78,94 @@ function Gateway() {
         "-=0.5"
       )
 
-      // SHOOTING STAR SYSTEM
+      // REAL SHOOTING STAR SYSTEM
 
       const createStar = () => {
         const rect = el.getBoundingClientRect()
 
-        const star = document.createElement("div")
-        star.style.position = "absolute"
-        star.style.width = "180px"
-        star.style.height = "2px"
-        star.style.background =
-          "linear-gradient(90deg, rgba(255,255,255,1) 0%, rgba(255,215,100,0.8) 40%, rgba(255,215,100,0.2) 70%, transparent 100%)"
-        star.style.pointerEvents = "none"
-        star.style.zIndex = "20"
-        star.style.opacity = "0"
+        const wrapper = document.createElement("div")
+        wrapper.style.position = "absolute"
+        wrapper.style.pointerEvents = "none"
+        wrapper.style.zIndex = "20"
 
-        // Random start position
         const startX = Math.random() * rect.width
         const startY = Math.random() * rect.height * 0.6
-
-        // Random end position
         const endX = Math.random() * rect.width
         const endY = Math.random() * rect.height
 
-        star.style.left = `${startX}px`
-        star.style.top = `${startY}px`
+        wrapper.style.left = `${startX}px`
+        wrapper.style.top = `${startY}px`
 
-        el.appendChild(star)
+        // STAR HEAD
+        const star = document.createElementNS(
+          "http://www.w3.org/2000/svg",
+          "svg"
+        )
+        star.setAttribute("width", "18")
+        star.setAttribute("height", "18")
+        star.setAttribute("viewBox", "0 0 24 24")
+        star.style.position = "absolute"
+        star.style.left = "0"
+        star.style.top = "-8px"
+        star.style.filter =
+          "drop-shadow(0 0 6px rgba(255,215,100,0.9)) drop-shadow(0 0 12px rgba(255,215,100,0.6))"
+
+        const path = document.createElementNS(
+          "http://www.w3.org/2000/svg",
+          "path"
+        )
+        path.setAttribute(
+          "d",
+          "M12 2 L14.9 8.5 L22 9.3 L16.5 14 L18 21 L12 17.5 L6 21 L7.5 14 L2 9.3 L9.1 8.5 Z"
+        )
+        path.setAttribute("fill", "#FFD966")
+
+        star.appendChild(path)
+
+        // TAIL
+        const tail = document.createElement("div")
+        tail.style.width = "120px"
+        tail.style.height = "2px"
+        tail.style.background =
+          "linear-gradient(90deg, rgba(255,215,100,0.8) 0%, rgba(255,215,100,0.3) 60%, transparent 100%)"
+        tail.style.position = "absolute"
+        tail.style.left = "-120px"
+        tail.style.top = "0"
+
+        wrapper.appendChild(tail)
+        wrapper.appendChild(star)
+        el.appendChild(wrapper)
 
         const angle =
           (Math.atan2(endY - startY, endX - startX) * 180) / Math.PI
 
-        gsap.set(star, { rotate: angle })
+        gsap.set(wrapper, { rotate: angle })
 
         gsap.timeline({
-          onComplete: () => {
-            star.remove()
-          },
+          onComplete: () => wrapper.remove(),
         })
-          .to(star, {
-            opacity: 1,
-            duration: 0.1,
-          })
-          .to(star, {
+          .fromTo(
+            wrapper,
+            { opacity: 0 },
+            { opacity: 1, duration: 0.1 }
+          )
+          .to(wrapper, {
             x: endX - startX,
             y: endY - startY,
-            duration: 1.2,
+            duration: 1.4,
             ease: "power2.out",
           })
           .to(
-            star,
-            {
-              opacity: 0,
-              duration: 0.3,
-            },
+            wrapper,
+            { opacity: 0, duration: 0.3 },
             "-=0.3"
           )
       }
 
-      // Launch star occasionally
       tl.add(() => {
         starInterval = window.setInterval(() => {
           createStar()
-        }, 8000)
+        }, 5000)
       })
     }, containerRef)
 
@@ -155,7 +180,6 @@ function Gateway() {
       ref={containerRef}
       className="relative bg-[#111111] rounded-lg mt-5 py-[9.2rem] text-white overflow-hidden"
     >
-      {/* Background Pillars */}
       <div className="absolute inset-0 flex items-end justify-center pointer-events-none">
         <div
           className="pillars-row h-[600px] flex items-end gap-4"
