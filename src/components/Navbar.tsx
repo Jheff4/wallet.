@@ -7,7 +7,7 @@ import { RiCloseLargeLine } from 'react-icons/ri';
 
 const navlinks = [
   { text: 'Docs', link: 'https://kit.razorwallet.xyz/' },
-  { text: 'Discord', link: 'https://discord.com/invite/pzhexEWGcT' },
+  // { text: 'Discord', link: 'https://discord.com/invite/pzhexEWGcT' },
   // { text: 'Developers', link: 'https://kit.razorwallet.xyz/' },
 ];
 function Navbar() {
@@ -74,19 +74,18 @@ function Navbar() {
           </div>
         )}
 
-        <div className="hidden md:flex text-base gap-[5rem] max-lg:gap-[3rem] ml-24">
-          {navlinks.map((item) => (
-            <a
-              className="hover:text-[#949494] transition-all duration-300 text-white"
-              key={`nav-${item.text}`}
-              href={item.link}
-            >
-              {item.text}
-            </a>
-          ))}
-        </div>
-
         <div className="flex md:gap-8 gap-3 items-center">
+          <div className="hidden md:flex text-base gap-[5rem] max-lg:gap-[3rem] ml-24">
+            {navlinks.map((item) => (
+              <a
+                className="hover:text-[#949494] transition-all duration-300 text-white"
+                key={`nav-${item.text}`}
+                href={item.link}
+              >
+                {item.text}
+              </a>
+            ))}
+          </div>
           <a
             href=""
             className="max-md:hidden"

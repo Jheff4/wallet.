@@ -23,7 +23,7 @@ function Features() {
       const tl = gsap.timeline({
         scrollTrigger: {
           trigger: sectionRef.current,
-          start: "top bottom-=200",
+          start: "top bottom-=150",
           toggleActions: "play none none reverse",
         },
       })
