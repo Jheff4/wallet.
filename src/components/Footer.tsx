@@ -253,7 +253,7 @@ function Footer() {
       </div>
 
       <div className="text-center justify-center text-white text-medium py-[2.1rem]">
-        © 2025 RazorDAO. All Rights Reserved.
+        © 2026 RazorDAO. All Rights Reserved.
       </div>
     </footer>
   )
