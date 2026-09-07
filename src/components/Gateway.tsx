@@ -13,7 +13,10 @@ function Gateway() {
   ]
 
   useEffect(() => {
-    let starInterval: number
+    let starInterval = 0
+    // Stars only begin once the entrance timeline has played through.
+    let starsUnlocked = false
+    let onVisibility: (() => void) | null = null
 
     const ctx = gsap.context(() => {
       const el = containerRef.current
@@ -78,99 +81,150 @@ function Gateway() {
         "-=0.5"
       )
 
-      // REAL SHOOTING STAR SYSTEM
+      // SHOOTING STAR SYSTEM
+      //
+      // Meteors read as a bright point dragging a tapered streak, not as a
+      // star polygon. Everything below is built from gradients rather than
+      // filters so a moving star doesn't force a filter repaint each frame.
+
+      const rand = gsap.utils.random
 
       const createStar = () => {
         const rect = el.getBoundingClientRect()
+
+        // A shower radiates along a shared axis; jitter keeps each pass from
+        // looking like the same sprite replayed.
+        const angle = rand(20, 38)
+        const rad = (angle * Math.PI) / 180
+        const distance = rand(360, 640)
+        const scale = rand(0.55, 1.15)
+        const duration = rand(0.75, 1.2)
+        const tailLength = rand(90, 190) * scale
+
+        // Start off the left/top edges too, so stars enter frame mid-flight
+        // instead of all being born inside it.
+        const startX = rand(-120, rect.width * 0.8)
+        const startY = rand(-60, rect.height * 0.5)
 
         const wrapper = document.createElement("div")
         wrapper.style.position = "absolute"
         wrapper.style.pointerEvents = "none"
         wrapper.style.zIndex = "20"
-
-        const startX = Math.random() * rect.width
-        const startY = Math.random() * rect.height * 0.6
-        const endX = Math.random() * rect.width
-        const endY = Math.random() * rect.height
-
         wrapper.style.left = `${startX}px`
         wrapper.style.top = `${startY}px`
+        wrapper.style.willChange = "transform, opacity"
 
-        // STAR HEAD
-        const star = document.createElementNS(
-          "http://www.w3.org/2000/svg",
-          "svg"
-        )
-        star.setAttribute("width", "18")
-        star.setAttribute("height", "18")
-        star.setAttribute("viewBox", "0 0 24 24")
-        star.style.position = "absolute"
-        star.style.left = "0"
-        star.style.top = "-8px"
-        star.style.filter =
-          "drop-shadow(0 0 6px rgba(255,215,100,0.9)) drop-shadow(0 0 12px rgba(255,215,100,0.6))"
-
-        const path = document.createElementNS(
-          "http://www.w3.org/2000/svg",
-          "path"
-        )
-        path.setAttribute(
-          "d",
-          "M12 2 L14.9 8.5 L22 9.3 L16.5 14 L18 21 L12 17.5 L6 21 L7.5 14 L2 9.3 L9.1 8.5 Z"
-        )
-        path.setAttribute("fill", "#FFD966")
-
-        star.appendChild(path)
-
-        // TAIL
+        // TAIL — triangle tapering to a point behind the head, brightest
+        // where it meets the head.
         const tail = document.createElement("div")
-        tail.style.width = "120px"
-        tail.style.height = "2px"
-        tail.style.background =
-          "linear-gradient(90deg, rgba(255,215,100,0.8) 0%, rgba(255,215,100,0.3) 60%, transparent 100%)"
         tail.style.position = "absolute"
-        tail.style.left = "-120px"
-        tail.style.top = "0"
+        tail.style.width = `${tailLength}px`
+        tail.style.height = `${3 * scale}px`
+        tail.style.left = `${-tailLength}px`
+        tail.style.top = `${-1.5 * scale}px`
+        tail.style.background =
+          "linear-gradient(90deg," +
+          " rgba(255,214,102,0) 0%," +
+          " rgba(255,214,102,0.28) 55%," +
+          " rgba(255,241,194,0.95) 100%)"
+        tail.style.clipPath = "polygon(0 50%, 100% 0, 100% 100%)"
+        tail.style.transformOrigin = "100% 50%"
+
+        // HEAD — white core fading out through warm gold. One radial
+        // gradient gives core + halo in a single paint.
+        const head = document.createElement("div")
+        const headSize = 16 * scale
+        head.style.position = "absolute"
+        head.style.width = `${headSize}px`
+        head.style.height = `${headSize}px`
+        head.style.left = `${-headSize / 2}px`
+        head.style.top = `${-headSize / 2}px`
+        head.style.borderRadius = "50%"
+        head.style.background =
+          "radial-gradient(circle," +
+          " #ffffff 0%," +
+          " rgba(255,245,214,0.95) 16%," +
+          " rgba(255,214,102,0.5) 38%," +
+          " rgba(255,214,102,0) 70%)"
 
         wrapper.appendChild(tail)
-        wrapper.appendChild(star)
+        wrapper.appendChild(head)
         el.appendChild(wrapper)
 
-        const angle =
-          (Math.atan2(endY - startY, endX - startX) * 180) / Math.PI
+        gsap.set(wrapper, { rotation: angle, opacity: 0, force3D: true })
+        gsap.set(tail, { scaleX: 0.15 })
 
-        gsap.set(wrapper, { rotate: angle })
-
-        gsap.timeline({
-          onComplete: () => wrapper.remove(),
-        })
-          .fromTo(
-            wrapper,
-            { opacity: 0 },
-            { opacity: 1, duration: 0.1 }
-          )
-          .to(wrapper, {
-            x: endX - startX,
-            y: endY - startY,
-            duration: 1.4,
-            ease: "power2.out",
+        gsap
+          .timeline({
+            onComplete: () => wrapper.remove(),
           })
+          // Linear travel — a meteor holds its speed, it doesn't ease out.
           .to(
             wrapper,
-            { opacity: 0, duration: 0.3 },
-            "-=0.3"
+            {
+              x: Math.cos(rad) * distance,
+              y: Math.sin(rad) * distance,
+              duration,
+              ease: "none",
+            },
+            0
+          )
+          .to(wrapper, { opacity: 1, duration: duration * 0.15 }, 0)
+          // Trail draws out behind the head, then burns back down as it dims.
+          .to(
+            tail,
+            { scaleX: 1, duration: duration * 0.45, ease: "power2.out" },
+            0
+          )
+          .to(
+            tail,
+            { scaleX: 0.45, duration: duration * 0.4, ease: "power1.in" },
+            duration * 0.6
+          )
+          .to(
+            wrapper,
+            { opacity: 0, duration: duration * 0.35, ease: "power2.in" },
+            duration * 0.65
           )
       }
 
+      // Only spawn stars while the section is actually on screen and the
+      // tab is visible. A hidden tab pauses GSAP's ticker, so each star's
+      // onComplete would never fire and the wrappers would pile up in the
+      // DOM forever.
+      const setStarsRunning = (on: boolean) => {
+        if (on) {
+          if (starInterval) return
+          starInterval = window.setInterval(createStar, 2800)
+        } else {
+          if (!starInterval) return
+          clearInterval(starInterval)
+          starInterval = 0
+        }
+      }
+
+      const shouldRun = () =>
+        starsUnlocked && !document.hidden && ScrollTrigger.isInViewport(el)
+
+      ScrollTrigger.create({
+        trigger: el,
+        start: "top bottom",
+        end: "bottom top",
+        onToggle: () => setStarsRunning(shouldRun()),
+      })
+
+      onVisibility = () => setStarsRunning(shouldRun())
+      document.addEventListener("visibilitychange", onVisibility)
+
       tl.add(() => {
-        starInterval = window.setInterval(() => {
-          createStar()
-        }, 5000)
+        starsUnlocked = true
+        setStarsRunning(shouldRun())
       })
     }, containerRef)
 
     return () => {
       if (starInterval) clearInterval(starInterval)
+      if (onVisibility) document.removeEventListener("visibilitychange", onVisibility)
       ctx.revert()
     }
   }, [])

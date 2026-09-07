@@ -1,8 +1,8 @@
 import { useRef } from 'react'
 import gsap from 'gsap'
 import { useGSAP } from '@gsap/react'
-import leftSpiral from '../assets/leftSpiral.svg'
-import rightSpiral from '../assets/rightSpiral.svg'
+import leftSpiral from '../assets/leftSpiral.webp'
+import rightSpiral from '../assets/rightSpiral.webp'
 import chromeLogo from '../assets/chrome.png'
 
 gsap.registerPlugin(useGSAP)
@@ -84,43 +84,58 @@ function Hero() {
 
   }, { scope: containerRef })
 
-  const pulseTween = useRef<gsap.core.Tween | null>(null)
+  const hoverTl = useRef<gsap.core.Timeline | null>(null)
 
+  // The pulse originally ran as a second tween fired at the same instant as
+  // the hover tween — both wrote `scale` every frame with different eases, so
+  // they fought, and the yoyo swung all the way back to 1 (unhovered size)
+  // rather than breathing around the hover size. Chaining them on one
+  // timeline means only ever one of them owns `scale` in a given frame.
   const handleMouseEnter = () => {
     if (!buttonRef.current) return
 
-    // Base hover scale + glow
-    gsap.to(buttonRef.current, {
-      scale: 1.06,
-      boxShadow: "0 0 25px rgba(255,255,255,0.8), 0 0 60px rgba(255,255,255,0.4)",
-      duration: 0.25,
-      ease: "power3.out"
-    })
-
-    // Subtle breathing pulse
-    pulseTween.current = gsap.to(buttonRef.current, {
-      scale: 1.09,
-      duration: 1.2,
-      ease: "sine.inOut",
-      yoyo: true,
-      repeat: -1
-    })
+    hoverTl.current?.kill()
+    hoverTl.current = gsap
+      .timeline()
+      .to(buttonRef.current, {
+        scale: 1.05,
+        // Set once and held. Re-interpolating a 60px blur every frame for as
+        // long as the cursor sits there is the one genuinely expensive thing
+        // this button could do, so the breathing below is scale-only.
+        boxShadow: "0 0 25px rgba(255,255,255,0.8), 0 0 60px rgba(255,255,255,0.4)",
+        duration: 0.28,
+        ease: "power3.out",
+        overwrite: "auto"
+      })
+      .to(buttonRef.current, {
+        scale: 1.08,
+        duration: 1.1,
+        ease: "sine.inOut",
+        yoyo: true,
+        repeat: -1
+      })
   }
 
   const handleMouseLeave = () => {
     if (!buttonRef.current) return
 
-    // Kill pulse loop
-    pulseTween.current?.kill()
+    hoverTl.current?.kill()
+    hoverTl.current = null
 
-    // Return to normal
     gsap.to(buttonRef.current, {
       scale: 1,
       boxShadow: "0 0 0px rgba(255,255,255,0)",
-      duration: 0.25,
-      ease: "power3.out"
+      duration: 0.35,
+      ease: "power3.out",
+      overwrite: "auto"
     })
   }
+
+  // The timeline is created on hover, so it isn't collected by useGSAP's
+  // scope — unmounting mid-hover would otherwise leave it ticking.
+  useGSAP(() => () => {
+    hoverTl.current?.kill()
+  })
 
   return (
     <div className="w-full">
@@ -175,7 +190,7 @@ function Hero() {
               <a
                 ref={buttonRef}
                 href="https://chromewebstore.google.com/detail/razor-wallet/fdcnegogpncmfejlfnffnofpngdiejii"
-                className="group relative flex py-[0.8rem] px-8 max-2xs:px-4 gap-2 rounded-2xl items-center bg-white cursor-pointer overflow-hidden"
+                className="group relative flex py-[0.8rem] px-8 max-2xs:px-4 gap-2 rounded-2xl items-center bg-white cursor-pointer overflow-hidden will-change-transform"
                 onMouseEnter={handleMouseEnter}
                 onMouseLeave={handleMouseLeave}
               >

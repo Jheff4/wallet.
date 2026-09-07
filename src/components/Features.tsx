@@ -1,11 +1,11 @@
-import firstCard from '../assets/first.svg'
-import thirdCard from '../assets/third.svg'
-import fourthCard from '../assets/fourth.svg'
-import fifthCard from '../assets/fifth.svg'
+import firstCard from '../assets/first.webp'
+import thirdCard from '../assets/third.webp'
+import fourthCard from '../assets/fourth.webp'
+import fifthCard from '../assets/fifth.webp'
 import sixthCard from '../assets/sixth.svg'
-import seventhCard from '../assets/seventh.svg'
-import sixthBg from '../assets/sixth-bg.svg'
-import eighthCard from '../assets/eighth.svg'
+import seventhCard from '../assets/seventh.webp'
+import sixthBg from '../assets/sixth-bg.webp'
+import eighthCard from '../assets/eighth.webp'
 import walletIcon from '../assets/razor.png'
 import { useEffect, useRef } from "react"
 import gsap from "gsap"
@@ -17,6 +17,10 @@ function Features() {
   const sectionRef = useRef<HTMLDivElement | null>(null)
 
   useEffect(() => {
+    // Lives outside the context so cleanup can kill it: tweens created
+    // later from a timeline callback aren't collected by gsap.context().
+    let floatTween: gsap.core.Tween | null = null
+
     const ctx = gsap.context(() => {
       const cards = gsap.utils.toArray<HTMLElement>(".feature-card")
 
@@ -28,6 +32,10 @@ function Features() {
         },
       })
 
+      // Promote to their own layer for the reveal, then release so the
+      // cards don't hold GPU memory for the rest of the page's life.
+      gsap.set(cards, { willChange: "transform, opacity" })
+
       tl.from(cards, {
         y: 90,
         opacity: 0,
@@ -36,10 +44,17 @@ function Features() {
         stagger: {
           each: 0.19,
         },
+        onComplete: () => gsap.set(cards, { willChange: "auto" }),
       })
 
+      // Each wallet-card carries its own baked-in `transform: translate(x,y)`
+      // for the stacked look, so an absolute `y` here would land every card
+      // on the same value — making them travel different distances, and some
+      // of them travel the wrong way. yPercent is relative to the card's own
+      // height and composes on top of `y` instead of overwriting it, so all
+      // five rise by an identical ~30px and `y` is left free for the float.
       tl.from(".wallet-card", {
-        y: 30,
+        yPercent: 33,
         opacity: 0,
         scale: 0.97,
         duration: 0.7,
@@ -51,9 +66,15 @@ function Features() {
       }, "-=0.4")
 
       tl.add(() => {
-        gsap.to(".wallet-card", {
-          y: "+=3",
-          duration: 2.5,
+        // Timeline callbacks re-fire every time the playhead crosses them,
+        // and this ScrollTrigger reverses — without the guard, each scroll
+        // past the section stacked another infinite tween on the same
+        // elements, all fighting over the same property.
+        if (floatTween) return
+        gsap.set(".wallet-card", { willChange: "transform" })
+        floatTween = gsap.to(".wallet-card", {
+          y: "+=6",
+          duration: 3,
           yoyo: true,
           repeat: -1,
           ease: "sine.inOut",
@@ -64,7 +85,10 @@ function Features() {
       })
     }, sectionRef)
 
-    return () => ctx.revert()
+    return () => {
+      floatTween?.kill()
+      ctx.revert()
+    }
   }, [])
 
   const height = 440
@@ -107,6 +131,8 @@ function Features() {
 
             <img
               src={firstCard}
+              loading="lazy"
+              decoding="async"
               className={`${mediaWrapper} w-[18rem] absolute left-1/2 -translate-x-1/2 -bottom-8 xl:-bottom-0`}
             />
           </div>
@@ -206,6 +232,8 @@ function Features() {
 
             <img
               src={thirdCard}
+              loading="lazy"
+              decoding="async"
               className={`${mediaWrapper} w-[18rem] lg:w-[70%] bottom-16 right-3`}
             />
           </div>
@@ -223,6 +251,8 @@ function Features() {
 
             <img
               src={fourthCard}
+              loading="lazy"
+              decoding="async"
               className={`${mediaWrapper} w-full bottom-0 xs:-bottom-16 sm:-bottom-0 md:-bottom-14 lg:-bottom-8 xl:-bottom-0`}
             />
           </div>
@@ -327,6 +357,8 @@ function Features() {
 
             <img
               src={fifthCard}
+              loading="lazy"
+              decoding="async"
               className="
                 absolute
                 left-1/2 
@@ -357,6 +389,8 @@ function Features() {
             {/* Background waves */}
             <img
               src={sixthBg}
+              loading="lazy"
+              decoding="async"
               className="absolute inset-0 w-full h-full object-cover"
             />
 
@@ -366,6 +400,8 @@ function Features() {
 
             <img
               src={sixthCard}
+              loading="lazy"
+              decoding="async"
               className={`${mediaWrapper} w-[62%] xs:w-[58%] absolute left-1/2 -translate-x-1/2`}
             />
           </div>
@@ -383,6 +419,8 @@ function Features() {
 
             <img
               src={seventhCard}
+              loading="lazy"
+              decoding="async"
               className={`${mediaWrapper} w-full h-full xs:w-[90%] xs:h-[120%] lg:w-full xl:h-full`}
             />
           </div>
@@ -400,6 +438,8 @@ function Features() {
 
             <img
               src={eighthCard}
+              loading="lazy"
+              decoding="async"
               className={`${mediaWrapper} w-[40%] 2xs:w-[37%] xs:w-[28%] sm:w-[39%] md:w-[35%] lg:w-[39%] absolute left-1/2 -translate-x-1/2`}
             />
           </div>

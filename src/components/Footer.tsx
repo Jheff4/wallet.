@@ -194,6 +194,30 @@ function Footer() {
     return () => ctx.revert()
   }, [])
 
+  // These buttons are positioned by the entrance timeline, which writes an
+  // inline transform — so a Tailwind hover:scale class would be overridden.
+  // overwrite:"auto" retires only the conflicting properties, leaving the
+  // entrance opacity tween alone if you hover while it's still running.
+  const handleBtnEnter = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    gsap.to(e.currentTarget, {
+      y: -4,
+      scale: 1.02,
+      duration: 0.28,
+      ease: "power3.out",
+      overwrite: "auto"
+    })
+  }
+
+  const handleBtnLeave = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    gsap.to(e.currentTarget, {
+      y: 0,
+      scale: 1,
+      duration: 0.35,
+      ease: "power3.out",
+      overwrite: "auto"
+    })
+  }
+
   return (
     <footer ref={sectionRef}>
       <div
@@ -237,12 +261,22 @@ function Footer() {
 
             <div className="flex flex-col md:flex-row text-base gap-4 md:gap-6 items-center font-medium text-white mb-10 w-full md:w-auto">
 
-              <a href="#" className="footer-btn-x flex py-[1rem] px-8 gap-5 rounded-2xl items-center bg-[#180523] w-full md:w-auto justify-center">
+              <a
+                href="#"
+                onMouseEnter={handleBtnEnter}
+                onMouseLeave={handleBtnLeave}
+                className="footer-btn-x flex py-[1rem] px-8 gap-5 rounded-2xl items-center bg-[#180523] w-full md:w-auto justify-center will-change-transform"
+              >
                 <div>Follow us on X</div>
                 <img className="w-8 h-8" src={x} alt="x" />
               </a>
 
-              <a href="#" className="footer-btn-discord flex py-[1rem] px-8 gap-5 rounded-2xl items-center bg-[#5A2873] w-full md:w-auto justify-center">
+              <a
+                href="#"
+                onMouseEnter={handleBtnEnter}
+                onMouseLeave={handleBtnLeave}
+                className="footer-btn-discord flex py-[1rem] px-8 gap-5 rounded-2xl items-center bg-[#5A2873] w-full md:w-auto justify-center will-change-transform"
+              >
                 <div>Join our Discord</div>
                 <img className="w-8 h-8" src={discord} alt="discord" />
               </a>
