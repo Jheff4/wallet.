@@ -44,7 +44,11 @@ function Features() {
         stagger: {
           each: 0.19,
         },
-        onComplete: () => gsap.set(cards, { willChange: "auto" }),
+        // Block body, not a concise arrow: gsap.set() returns a Tween, and
+        // gsap 3.14's Callback type requires void.
+        onComplete: () => {
+          gsap.set(cards, { willChange: "auto" })
+        },
       })
 
       // Each wallet-card carries its own baked-in `transform: translate(x,y)`
