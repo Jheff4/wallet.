@@ -86,13 +86,22 @@ function Hero() {
 
   const hoverTl = useRef<gsap.core.Timeline | null>(null)
 
+  // Tapping on a touch device fires mouseenter, but mouseleave often never
+  // follows — which would strand the button at 1.05 with the infinite pulse
+  // still running, on the one device where you can't hover out of it. Only arm
+  // the hover where a real pointer exists. Checked per call rather than once,
+  // so plugging in a mouse or switching input mode is picked up.
+  const canHover = () =>
+    typeof window !== "undefined" &&
+    window.matchMedia("(hover: hover) and (pointer: fine)").matches
+
   // The pulse originally ran as a second tween fired at the same instant as
   // the hover tween — both wrote `scale` every frame with different eases, so
   // they fought, and the yoyo swung all the way back to 1 (unhovered size)
   // rather than breathing around the hover size. Chaining them on one
   // timeline means only ever one of them owns `scale` in a given frame.
   const handleMouseEnter = () => {
-    if (!buttonRef.current) return
+    if (!buttonRef.current || !canHover()) return
 
     hoverTl.current?.kill()
     hoverTl.current = gsap
@@ -186,13 +195,17 @@ function Hero() {
               <span className="hero-word inline-block">Companion</span>
             </div>
 
-            <div className="flex flex-wrap text-base gap-6 items-center font-bold text-darkText mb-10">
+            <div className="flex flex-wrap text-base gap-6 items-center font-medium text-darkText mb-10">
               <a
                 ref={buttonRef}
                 href="https://chromewebstore.google.com/detail/razor-wallet/fdcnegogpncmfejlfnffnofpngdiejii"
                 className="group relative flex py-[0.8rem] px-8 max-2xs:px-4 gap-2 rounded-2xl items-center bg-white cursor-pointer overflow-hidden will-change-transform"
                 onMouseEnter={handleMouseEnter}
                 onMouseLeave={handleMouseLeave}
+                // Hybrid devices (touch laptops) satisfy (hover: hover), so a
+                // tap can still start the pulse without a mouseleave to end it.
+                onTouchEnd={handleMouseLeave}
+                onTouchCancel={handleMouseLeave}
               >
                 <img className="w-9 h-9 relative z-10" src={chromeLogo} alt="extension" />
                 <div className="relative z-10">Download for Chrome</div>
