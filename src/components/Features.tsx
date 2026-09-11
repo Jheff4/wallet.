@@ -24,6 +24,14 @@ function Features() {
     const ctx = gsap.context(() => {
       const cards = gsap.utils.toArray<HTMLElement>(".feature-card");
 
+      // Both .from() tweens below animate FROM a hidden state TO whatever the
+      // cards already render as, and the float loop is continuous decorative
+      // motion with no fixed end — so under reduced motion we skip building
+      // the timeline entirely rather than forcing any state.
+      if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+        return;
+      }
+
       const tl = gsap.timeline({
         scrollTrigger: {
           trigger: sectionRef.current,

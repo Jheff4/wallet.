@@ -20,6 +20,16 @@ function Footer() {
   useEffect(() => {
     const ctx = gsap.context(() => {
 
+      // Every element below is only hidden/rotated because the gsap.set()
+      // calls just under this say so — nothing is hidden by default CSS. So
+      // skipping this whole block under reduced motion leaves the headline,
+      // hands and buttons visible and the glare unrotated, with no forcing
+      // needed. The glare's own swing is dropped for the same reason as the
+      // hero pulse and the gateway stars: continuous decorative motion.
+      if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+        return
+      }
+
       const tl = gsap.timeline({
         scrollTrigger: {
           trigger: sectionRef.current,
@@ -277,7 +287,7 @@ function Footer() {
         <div className="w-full px-6">
           <div className="footer-headline flex mt-16 gap-5 items-center flex-col">
 
-            <div className="text-[2.8rem] md:text-[3.8rem] lg:text-[4.5rem] leading-[1] tracking-wider font-black text-center text-black flex flex-col gap-4">
+            <div className="text-[2.8rem] md:text-[3.8rem] lg:text-[4.5rem] leading-[1] tracking-wider font-extrabold max-sm:font-bold text-center text-black flex flex-col gap-4">
               Join the Sharp <br /> Frenzy
               <span className="footer-subtext text-lg md:text-xl lg:text-2xl tracking-normal leading-8 md:leading-10 font-normal text-black">
                 Join the community of the Razor Sharp Defi
