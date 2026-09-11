@@ -254,15 +254,24 @@ function Footer() {
           className="absolute bottom-0 left-[6.5%] w-[80%] pointer-events-none select-none"
         />
 
-        {/* LEFT HANDS */}
-        <img src={secondhand} alt="" loading="lazy" decoding="async" className="hand-2 hidden xl:block absolute bottom-0 left-[6.5rem] w-[74px] pointer-events-none select-none" />
-        <img src={fifthhand} alt="" loading="lazy" decoding="async" className="hand-5 hidden xl:block absolute bottom-0 left-[5.5rem] w-[340px] pointer-events-none select-none" />
-        <img src={thirdhand} alt="" loading="lazy" decoding="async" className="hand-3 hidden xl:block absolute bottom-0 left-[7.5rem] w-[530px] pointer-events-none select-none" />
+        {/* The hands are one fixed composition, not six independently
+            edge-anchored images. This stage never narrows below the desktop
+            card width (1262px at the xl breakpoint), stays centred, and is
+            cropped by the card's overflow-hidden — so it crops in from both
+            sides like a background-image rather than the hands marching
+            inward as the card shrinks. At desktop the stage equals the card,
+            so nothing there changes. */}
+        <div className="absolute inset-y-0 left-1/2 -translate-x-1/2 w-full min-w-[1262px] pointer-events-none">
+          {/* LEFT HANDS */}
+          <img src={secondhand} alt="" loading="lazy" decoding="async" className="hand-2 absolute bottom-0 left-[6.5rem] w-[74px] max-w-none pointer-events-none select-none" />
+          <img src={fifthhand} alt="" loading="lazy" decoding="async" className="hand-5 absolute bottom-0 left-[5.5rem] w-[340px] max-w-none pointer-events-none select-none" />
+          <img src={thirdhand} alt="" loading="lazy" decoding="async" className="hand-3 absolute bottom-0 left-[7.5rem] w-[530px] max-w-none pointer-events-none select-none" />
 
-        {/* RIGHT HANDS */}
-        <img src={firsthand} alt="" loading="lazy" decoding="async" className="hand-1 hidden xl:block absolute bottom-0 right-[6rem] w-[470px] pointer-events-none select-none" />
-        <img src={sixthhand} alt="" loading="lazy" decoding="async" className="hand-6 hidden xl:block absolute bottom-0 right-[13rem] w-[72px] pointer-events-none select-none" />
-        <img src={fourthhand} alt="" loading="lazy" decoding="async" className="hand-4 hidden xl:block absolute bottom-0 right-[6.5rem] w-[77px] pointer-events-none select-none" />
+          {/* RIGHT HANDS */}
+          <img src={firsthand} alt="" loading="lazy" decoding="async" className="hand-1 absolute bottom-0 right-[6rem] w-[470px] max-w-none pointer-events-none select-none" />
+          <img src={sixthhand} alt="" loading="lazy" decoding="async" className="hand-6 absolute bottom-0 right-[13rem] w-[72px] max-w-none pointer-events-none select-none" />
+          <img src={fourthhand} alt="" loading="lazy" decoding="async" className="hand-4 absolute bottom-0 right-[6.5rem] w-[77px] max-w-none pointer-events-none select-none" />
+        </div>
 
         {/* CONTENT */}
         <div className="w-full px-6">

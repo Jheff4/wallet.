@@ -150,7 +150,7 @@ function Features() {
             style={{ height }}
             className={`bg-[linear-gradient(180deg,#FF7827_0%,#D05A13_100%)] ${baseCard} p-6 max-md:p-4`}
           >
-            <h3 className="text-[2.9rem] leading-[1.1] font-semibold tracking-wide text-black text-end mt-8 mr-2">
+            <h3 className="text-[2.9rem] leading-[1.1] font-semibold tracking-wide text-black text-end mt-8">
               Connect to <br /> Multiple <br /> Dapps
             </h3>
 
@@ -230,7 +230,7 @@ function Features() {
             style={{ height }}
             className={`bg-[#331642] ${baseCard} p-6 max-md:p-4`}
           >
-            <h3 className="text-[3.8rem] leading-[1.1] font-semibold tracking-wide text-white mt-16 z-20">
+            <h3 className="text-[3.8rem] leading-[1.1] font-semibold tracking-wide text-white my-auto z-20">
               All your <br /> assets <br className="max-md:hidden" /> are{" "}
               <br className="max-lg:hidden max-md:block" /> secured
             </h3>
@@ -239,7 +239,7 @@ function Features() {
               src={thirdCard}
               loading="lazy"
               decoding="async"
-              className={`${mediaWrapper} w-[18rem] lg:w-[70%] bottom-16 right-3`}
+              className="absolute right-3 top-1/2 -translate-y-1/2 w-[18rem] lg:w-[70%] pointer-events-none select-none"
             />
           </div>
         </div>
@@ -250,7 +250,7 @@ function Features() {
             style={{ height }}
             className={`bg-[#070723] ${baseCard} p-[0.7rem] pt-4`}
           >
-            <h3 className="text-[2.7rem] xs:text-[2.8rem] sm:text-[3rem] md:text-[3.2rem] xl:text-[3.5rem] leading-none font-semibold tracking-wide text-white whitespace-nowrap">
+            <h3 className="text-[3rem] xs:text-[2.8rem] sm:text-[3rem] md:text-[3.2rem] xl:text-[3.3rem] leading-[1.1] 2xl:leading-none font-semibold tracking-normal 2xl:tracking-wide text-white whitespace-nowrap relative sm:w-max sm:left-1/2 sm:-translate-x-1/2">
               10M+ <br className="xs:hidden sm:block" /> Transactions <br />{" "}
               since March, <br /> 2025
             </h3>
@@ -259,7 +259,7 @@ function Features() {
               src={fourthCard}
               loading="lazy"
               decoding="async"
-              className={`${mediaWrapper} w-full bottom-0 xs:-bottom-16 sm:-bottom-0 md:-bottom-14 lg:-bottom-8 xl:-bottom-0`}
+              className={`${mediaWrapper} w-full -bottom-7 xs:-bottom-16 sm:-bottom-0 md:-bottom-14 lg:-bottom-8 xl:-bottom-0`}
             />
           </div>
         </div>
@@ -283,9 +283,13 @@ function Features() {
                   pointer-events-none
                   select-none
                   xl:whitespace-nowrap
+                  translate-y-[13px]
+                  xl:w-max
+                  xl:left-1/2
+                  xl:right-auto
+                  xl:-translate-x-1/2
                 "
                 style={{
-                  transform: "translateY(13px)",
                   color: "#FFC000",
 
                   textShadow: `
@@ -319,6 +323,9 @@ function Features() {
                   tracking-wide
                   text-white
                   xl:whitespace-nowrap
+                  xl:w-max
+                  xl:left-1/2
+                  xl:-translate-x-1/2
                 "
                 style={{
                   textShadow: "0px 8px 0px #000000",
@@ -337,12 +344,14 @@ function Features() {
                 leading-[1]
                 font-semibold
                 tracking-wide
-                translate-y-11
-                xl:translate-y-3.5
+                translate-y-[13px]
                 xl:whitespace-nowrap
+                relative
+                xl:w-max
+                xl:left-1/2
+                xl:-translate-x-1/2
               "
               style={{
-                transform: "translateY(13px)",
                 color: "#FFC000",
 
                 textShadow: `
@@ -407,7 +416,7 @@ function Features() {
               className="absolute inset-0 w-full h-full object-cover"
             />
 
-            <h3 className="text-[3.2rem] leading-[1] font-semibold tracking-wide text-white relative z-10 pt-6">
+            <h3 className="text-[3.2rem] leading-[1] font-semibold tracking-wide text-white relative z-10 pt-6 w-max left-1/2 -translate-x-1/2">
               Seamless <br className="xs:hidden sm:block" /> and Secure <br />{" "}
               onboarding
             </h3>
@@ -446,7 +455,7 @@ function Features() {
             style={{ height }}
             className={`bg-[#9B7BB0] ${baseCard} px-2 pt-10 2xs:pt-8 xs:pt-4 xs:px-12 sm:px-4 sm:pt-7 lg:pt-8`}
           >
-            <h3 className="text-[2.65rem] xl:text-[2.8rem] leading-[1] text-center font-semibold tracking-wide text-black">
+            <h3 className="text-[2.65rem] xl:text-[2.8rem] leading-[1] text-center font-semibold tracking-wide text-black relative w-max left-1/2 -translate-x-1/2">
               Decentralised <br /> finance on <br /> your mobile
             </h3>
 
