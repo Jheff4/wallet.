@@ -13,16 +13,9 @@
     />
     <link
       rel="preload"
-      href="/fonts/Satoshi-Regular.woff"
+      href="/fonts/Satoshi-Variable.woff2"
       as="font"
-      type="font/woff"
-      crossorigin
-    />
-    <link
-      rel="preload"
-      href="/fonts/Satoshi-Medium.woff"
-      as="font"
-      type="font/woff"
+      type="font/woff2"
       crossorigin
     />
     <title>Razor Wallet</title>
@@ -51,22 +44,23 @@
       }
 
       /**
-          Explicitly load Satoshi var from public/ so it does not block LCP's critical path.
+          Satoshi Variable — one file covering the whole 300-900 range.
+
+          The design was authored against the variable font: hence the
+          non-standard 485/535 weights below and the font-variation-settings
+          feature query further down. Static cuts can't express those, and
+          Satoshi has no SemiBold at all, so any weight between 500 and 700
+          was unreachable with them.
+
+          font-display: swap so text paints immediately in the fallback
+          rather than being hidden for ~3s on a slow connection.
         */
       @font-face {
         font-family: 'Satoshi';
-        font-weight: 535;
+        font-weight: 300 900;
         font-style: normal;
-        font-display: block;
-        src: url('/fonts/Satoshi-Medium.woff') format('woff');
-      }
-
-      @font-face {
-        font-family: 'Satoshi';
-        font-weight: 485;
-        font-style: normal;
-        font-display: block;
-        src: url('/fonts/Satoshi-Regular.woff') format('woff');
+        font-display: swap;
+        src: url('/fonts/Satoshi-Variable.woff2') format('woff2');
       }
 
       @supports (font-variation-settings: normal) {

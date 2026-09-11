@@ -23,7 +23,7 @@ function Navbar() {
             className="w-10 h-10 transition-transform duration-300 hover:rotate-6"
             src={razorLogo}
           />
-          <span className="text-[1.4rem] text-white leading-8 hidden md:block font-bold">
+          <span className="text-[1.4rem] text-white leading-8 hidden md:block font-medium">
             Razor Wallet
           </span>
         </div>
@@ -110,7 +110,7 @@ function Navbar() {
 
           <a
             href="https://chromewebstore.google.com/detail/razor-wallet/fdcnegogpncmfejlfnffnofpngdiejii"
-            className="rounded-[18px] px-8 md:px-8 py-3 text-base text-[#271F30] font-semibold bg-[#FFC80F] hover:bg-white transition duration-500"
+            className="rounded-[18px] flex flex-row justify-center items-center gap-[10px] px-8 py-4 w-[140px] h-[48px] text-base text-[#271F30] font-medium bg-[linear-gradient(90deg,#FFC80F_0%,#EE6348_100%)] hover:opacity-90 transition duration-500"
           >
             Download
           </a>

@@ -46,6 +46,16 @@ function Gateway() {
 
       heading.childNodes.forEach(wrapWords)
 
+      // The pillars/heading .from() tweens below animate FROM a hidden state
+      // TO whatever the elements already render as — so skipping them leaves
+      // everything at its natural, fully-visible resting state; nothing needs
+      // forcing. The shooting-star shower is skipped outright: it's continuous
+      // decorative motion with no fixed end, exactly what this preference
+      // asks sites to drop.
+      if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+        return
+      }
+
       const tl = gsap.timeline({
         scrollTrigger: {
           trigger: el,
@@ -262,7 +272,8 @@ function Gateway() {
           text-[5.5rem]
           leading-[1.4]
           tracking-wide
-          font-black
+          font-extrabold
+          max-sm:font-bold
           text-center
           max-lg:text-[5rem]
           max-sm:text-[3.5rem]
