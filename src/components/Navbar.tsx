@@ -19,9 +19,14 @@ function Navbar() {
     >
       <div className="flex justify-between items-center w-full">
         <div className="flex items-center gap-4 cursor-pointer">
+          {/* A real alt, not alt="": the wordmark beside this is
+              hidden md:block, so below md the logo is the only thing
+              identifying the brand. Slight redundancy for desktop screen
+              readers is the better trade. */}
           <img
             className="w-10 h-10 transition-transform duration-300 hover:rotate-6"
             src={razorLogo}
+            alt="Razor Wallet"
           />
           <span className="text-[1.4rem] text-white leading-8 hidden md:block font-medium">
             Razor Wallet

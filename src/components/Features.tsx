@@ -145,6 +145,7 @@ function Features() {
 
             <img
               src={firstCard}
+              alt=""
               loading="lazy"
               decoding="async"
               className={`${mediaWrapper} w-[18rem] absolute left-1/2 -translate-x-1/2 -bottom-8 xl:-bottom-0`}
@@ -245,6 +246,7 @@ function Features() {
 
             <img
               src={thirdCard}
+              alt=""
               loading="lazy"
               decoding="async"
               className="absolute right-3 top-1/2 -translate-y-1/2 w-[18rem] lg:w-[70%] pointer-events-none select-none"
@@ -265,6 +267,7 @@ function Features() {
 
             <img
               src={fourthCard}
+              alt=""
               loading="lazy"
               decoding="async"
               className={`${mediaWrapper} w-full -bottom-7 xs:-bottom-16 sm:-bottom-0 md:-bottom-14 lg:-bottom-8 xl:-bottom-0`}
@@ -387,6 +390,7 @@ function Features() {
 
             <img
               src={fifthCard}
+              alt=""
               loading="lazy"
               decoding="async"
               className="
@@ -419,6 +423,7 @@ function Features() {
             {/* Background waves */}
             <img
               src={sixthBg}
+              alt=""
               loading="lazy"
               decoding="async"
               className="absolute inset-0 w-full h-full object-cover"
@@ -431,6 +436,7 @@ function Features() {
 
             <img
               src={sixthCard}
+              alt=""
               loading="lazy"
               decoding="async"
               className={`${mediaWrapper} w-[62%] xs:w-[58%] absolute left-1/2 -translate-x-1/2`}
@@ -450,6 +456,7 @@ function Features() {
 
             <img
               src={seventhCard}
+              alt=""
               loading="lazy"
               decoding="async"
               className={`${mediaWrapper} w-full h-full xs:w-[90%] xs:h-[120%] lg:w-full xl:h-full`}
@@ -469,6 +476,7 @@ function Features() {
 
             <img
               src={eighthCard}
+              alt=""
               loading="lazy"
               decoding="async"
               className={`${mediaWrapper} w-[40%] 2xs:w-[37%] xs:w-[28%] sm:w-[39%] md:w-[35%] lg:w-[39%] absolute left-1/2 -translate-x-1/2`}
