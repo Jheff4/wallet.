@@ -288,10 +288,28 @@ function Footer() {
           <div className="footer-headline flex mt-16 gap-5 items-center flex-col">
 
             <div className="text-[2.8rem] md:text-[3.8rem] lg:text-[4.5rem] leading-[1] tracking-wider font-extrabold max-sm:font-bold text-center text-black flex flex-col gap-4">
-              Join the Sharp <br /> Frenzy
+              {/* Same as the subtext break below: authored for the desktop
+                  measure, where "Join the Sharp" fits on one line. At 2.8rem
+                  in a ~296px container it doesn't, so the forced break landed
+                  on top of a natural wrap and split the headline three ways
+                  ("Join the" / "Sharp" / "Frenzy"). No {" "} needed here,
+                  unlike the subtext — the spaces around this break are on the
+                  same JSX line, so they're literal and survive. */}
+              Join the Sharp <br className="hidden md:inline" /> Frenzy
               <span className="footer-subtext text-lg md:text-xl lg:text-2xl tracking-normal leading-8 md:leading-10 font-normal text-black">
-                Join the community of the Razor Sharp Defi
-                <br />
+                {/* This break is authored for the desktop measure, where both
+                    halves fit on one line each. Below md the container is
+                    ~296px and each half is wider than that, so the forced
+                    break made each half wrap again and stranded its last word
+                    ("Defi", "Team") alone on a line. Dropped on mobile so the
+                    sentence just flows and fills each line.
+
+                    The {" "} is load-bearing: JSX strips the whitespace around
+                    the <br/>, so once it is display:none the two text nodes
+                    join with no space and render "Defienthusiasts" as one
+                    unbreakable word. */}
+                Join the community of the Razor Sharp Defi{" "}
+                <br className="hidden md:inline" />
                 enthusiasts for all updates from the Razor Team
               </span>
             </div>

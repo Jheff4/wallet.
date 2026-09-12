@@ -244,23 +244,39 @@ function Gateway() {
       ref={containerRef}
       className="relative bg-[#111111] rounded-lg mt-5 py-[9.2rem] text-white overflow-hidden"
     >
-      <div className="absolute inset-0 flex items-end justify-center pointer-events-none">
+      <div className="absolute inset-0 pointer-events-none">
+        {/* The row is deliberately wider than a phone (12 x 80px pillars that
+            can't shrink, plus gaps — never below ~1136px) so it crops in from
+            both sides like a background image. Centring it with
+            justify-content: center relied on the browser treating that
+            overflow as "unsafe" and spilling it both ways; Safari on iOS
+            aligns an overflowing flex item to the start instead, so the crop
+            landed on pillars 0-3 (80/68/56/44, a descending staircase)
+            rather than the symmetric 32/20/20/32 middle. Blink centres it, so
+            this only ever showed on hardware.
+
+            left-1/2 + -translate-x-1/2 centres identically in both engines.
+            It sits on this wrapper rather than on .pillars-row because GSAP
+            animates that element's scaleX and would overwrite the centring
+            transform. Same approach as the footer hands stage. */}
         <div
-          className="pillars-row h-[600px] flex items-end gap-4"
+          className="absolute bottom-0 left-1/2 -translate-x-1/2 h-[600px]"
           style={{ width: "max(100%, calc(12 * 80px + 11 * 16px))" }}
         >
-          {pillars.map((height, i) => (
-            <div
-              key={i}
-              className="pillar rounded-sm"
-              style={{
-                flex: "1 0 80px",
-                height: `${height}%`,
-                background:
-                  "linear-gradient(180deg, rgba(255, 216, 0, 0) 0%, rgba(254, 194, 24, 0.485577) 62.02%, #FDAB32 100%)",
-              }}
-            />
-          ))}
+          <div className="pillars-row h-full w-full flex items-end gap-4">
+            {pillars.map((height, i) => (
+              <div
+                key={i}
+                className="pillar rounded-sm"
+                style={{
+                  flex: "1 0 80px",
+                  height: `${height}%`,
+                  background:
+                    "linear-gradient(180deg, rgba(255, 216, 0, 0) 0%, rgba(254, 194, 24, 0.485577) 62.02%, #FDAB32 100%)",
+                }}
+              />
+            ))}
+          </div>
         </div>
       </div>
 
