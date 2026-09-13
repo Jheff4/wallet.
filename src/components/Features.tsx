@@ -459,7 +459,14 @@ function Features() {
               alt=""
               loading="lazy"
               decoding="async"
-              className={`${mediaWrapper} w-full h-full xs:w-[90%] xs:h-[120%] lg:w-full xl:h-full`}
+              // object-cover stops the distortion. Every breakpoint here forces
+              // BOTH width and height, so with the default object-fit: fill the
+              // art was stretched to whatever box resulted — 11.7% off its
+              // natural ratio, and the sole failing Best Practices audit. This
+              // was true as an SVG too; Lighthouse skips vector, so converting
+              // to WebP didn't cause it, it exposed it. cover keeps the box
+              // filled and crops ~6% horizontally instead of squashing.
+              className={`${mediaWrapper} object-cover w-full h-full xs:w-[90%] xs:h-[120%] lg:w-full xl:h-full`}
             />
           </div>
         </div>

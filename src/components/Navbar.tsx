@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import razorLogo from '../assets/razor.png';
 import appleIcon from '../assets/apple.png';
 import googleIcon from '../assets/google_play.png';
@@ -12,6 +12,59 @@ const navlinks = [
 ];
 function Navbar() {
   const [isOpen, setOpen] = useState(false);
+  const menuRef = useRef<HTMLDivElement>(null);
+  const closeBtnRef = useRef<HTMLButtonElement>(null);
+  const openBtnRef = useRef<HTMLButtonElement>(null);
+
+  // The open menu is a full-screen overlay, so it has to behave like a dialog.
+  // Without this, a keyboard user who opened it was stranded: focus stayed on
+  // the hamburger *underneath* the overlay, Escape did nothing, and Tab walked
+  // forward through the page links hidden behind it — the menu's own links sit
+  // earlier in the DOM, so they were only reachable by tabbing backwards.
+  useEffect(() => {
+    if (!isOpen) return;
+
+    // Captured now rather than read in the cleanup: by the time cleanup runs
+    // the ref may point elsewhere, and this is the node we want focus returned
+    // to regardless.
+    const opener = openBtnRef.current;
+
+    // Move focus into the menu that just opened.
+    closeBtnRef.current?.focus();
+
+    const onKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        setOpen(false);
+        return;
+      }
+      if (e.key !== 'Tab') return;
+
+      const items = menuRef.current?.querySelectorAll<HTMLElement>(
+        'a[href], button',
+      );
+      if (!items || items.length === 0) return;
+
+      const first = items[0];
+      const last = items[items.length - 1];
+
+      // Wrap at both ends so Tab can't reach the inert page behind.
+      if (e.shiftKey && document.activeElement === first) {
+        e.preventDefault();
+        last.focus();
+      } else if (!e.shiftKey && document.activeElement === last) {
+        e.preventDefault();
+        first.focus();
+      }
+    };
+
+    document.addEventListener('keydown', onKeyDown);
+    return () => {
+      document.removeEventListener('keydown', onKeyDown);
+      // Hand focus back to the control that opened it, rather than dumping the
+      // user at the top of the document.
+      opener?.focus();
+    };
+  }, [isOpen]);
 
   return (
     <nav
@@ -35,11 +88,26 @@ function Navbar() {
 
         {isOpen && (
           <div
+            ref={menuRef}
+            role="dialog"
+            aria-modal="true"
+            aria-label="Site menu"
             onClick={() => setOpen(false)}
             className="fixed top-0 left-0 w-full h-full text-white bg-black p-10 transition-all ease-in-out"
           >
-            <button className="ml-auto block text-2xl">
-              <RiCloseLargeLine onClick={() => setOpen(false)} />
+            {/* onClick belongs on the button, not the icon. With it on the
+                icon, tabbing here and pressing Enter fired nothing — the menu
+                had no keyboard exit, since the overlay's own dismiss handler
+                is a click too. aria-label because the button's only content is
+                an icon, which a screen reader announces as just "button". */}
+            <button
+              ref={closeBtnRef}
+              type="button"
+              onClick={() => setOpen(false)}
+              aria-label="Close menu"
+              className="ml-auto block text-2xl"
+            >
+              <RiCloseLargeLine aria-hidden="true" />
             </button>
             <div className="mt-5 gap-3 font-bold flex flex-col">
               {navlinks.map((item) => (
@@ -53,9 +121,14 @@ function Navbar() {
               ))}
             </div>
 
+            {/* No href on purpose — the apps aren't live yet. These used to
+                carry href="", which resolves to the current URL, so activating
+                one silently reloaded the page. Without an href an anchor isn't
+                focusable and isn't announced as a link, which is the honest
+                state for a destination that doesn't exist. Add the real store
+                URLs when they do; don't put href="" back. */}
             <div className="flex gap-10 items-center justify-center pt-20">
               <a
-                href=""
                 className="md:hidden"
               >
                 <img
@@ -66,7 +139,6 @@ function Navbar() {
               </a>
 
               <a
-                href=""
                 className="md:hidden"
               >
                 <img
@@ -91,8 +163,8 @@ function Navbar() {
               </a>
             ))}
           </div>
+          {/* Same as the pair in the menu above: no href until the apps ship. */}
           <a
-            href=""
             className="max-md:hidden"
           >
             <img
@@ -103,7 +175,6 @@ function Navbar() {
           </a>
 
           <a
-            href=""
             className="max-md:hidden"
           >
             <img
@@ -119,11 +190,18 @@ function Navbar() {
           >
             Download
           </a>
+          {/* This button is md:hidden, so it exists only on mobile — which is
+              why desktop Lighthouse scored 100 on accessibility while mobile
+              stopped at 89. Icon-only, so it needs an explicit name. */}
           <button
+            ref={openBtnRef}
+            type="button"
             onClick={() => setOpen(true)}
+            aria-label="Open menu"
+            aria-expanded={isOpen}
             className="text-2xl block md:hidden text-white"
           >
-            <LiaBarsSolid />
+            <LiaBarsSolid aria-hidden="true" />
           </button>
         </div>
       </div>
