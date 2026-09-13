@@ -317,7 +317,7 @@ function Footer() {
             <div className="flex flex-col md:flex-row text-base gap-4 md:gap-6 items-center font-medium text-white mb-10 w-full md:w-auto">
 
               <a
-                href="#"
+                href="https://x.com/RazorDAO"
                 onMouseEnter={handleBtnEnter}
                 onMouseLeave={handleBtnLeave}
                 onTouchEnd={handleBtnLeave}
@@ -325,11 +325,14 @@ function Footer() {
                 className="footer-btn-x flex py-[1rem] px-8 gap-5 rounded-2xl items-center bg-[#180523] w-full md:w-auto justify-center will-change-transform"
               >
                 <div>Follow us on X</div>
-                <img className="w-8 h-8" src={x} alt="x" loading="lazy" decoding="async" />
+                {/* alt="" — the visible label beside it already names the
+                    destination, so a real alt here would have a screen reader
+                    announce "Follow us on X, x". */}
+                <img className="w-8 h-8" src={x} alt="" loading="lazy" decoding="async" />
               </a>
 
               <a
-                href="#"
+                href="https://discord.gg/razordao"
                 onMouseEnter={handleBtnEnter}
                 onMouseLeave={handleBtnLeave}
                 onTouchEnd={handleBtnLeave}
@@ -337,7 +340,7 @@ function Footer() {
                 className="footer-btn-discord flex py-[1rem] px-8 gap-5 rounded-2xl items-center bg-[#5A2873] w-full md:w-auto justify-center will-change-transform"
               >
                 <div>Join our Discord</div>
-                <img className="w-8 h-8" src={discord} alt="discord" loading="lazy" decoding="async" />
+                <img className="w-8 h-8" src={discord} alt="" loading="lazy" decoding="async" />
               </a>
 
             </div>
